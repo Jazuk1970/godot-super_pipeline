@@ -1,0 +1,16 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/enemies/EnemySpawner.gd" type="Script" id=1]
+[ext_resource path="res://scenes/enemies/types/Plug/plug.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/types/Ant/Ant.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/enemies/types/Flea/Flea.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/enemies/types/Lobster/Lobster.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/enemies/types/Block/Block.tscn" type="PackedScene" id=6]
+
+[node name="EnemySpawner" type="Node"]
+script = ExtResource( 1 )
+Plug = ExtResource( 2 )
+Ant = ExtResource( 3 )
+Flea = ExtResource( 4 )
+Lobster = ExtResource( 5 )
+Block = ExtResource( 6 )

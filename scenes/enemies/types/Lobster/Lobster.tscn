@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/types/Lobster/Lobster.gd" type="Script" id=2]
+[ext_resource path="res://scenes/enemies/gfx/characters.png" type="Texture" id=3]
+[ext_resource path="res://scenes/enemies/types/Lobster/States/Spawning.gd" type="Script" id=4]
+[ext_resource path="res://scenes/enemies/types/Lobster/States/WalkPipe.gd" type="Script" id=5]
+[ext_resource path="res://scenes/enemies/types/Lobster/States/Dying.gd" type="Script" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Climb"
+length = 0.36
+loop = true
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.09, 0.18, 0.27 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.36
+loop = true
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.09, 0.18, 0.27 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 3, 5, 3 ]
+}
+
+[node name="Lobster" instance=ExtResource( 1 )]
+collision_layer = 32
+collision_mask = 22
+script = ExtResource( 2 )
+type = "Lobster"
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, -22 )
+texture = ExtResource( 3 )
+hframes = 6
+frame = 2
+region_enabled = true
+region_rect = Rect2( 8, 296, 752, 101.334 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0.37671, -21.2706 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+anims/Climb = SubResource( 1 )
+anims/Walk = SubResource( 2 )
+
+[node name="States" type="Node" parent="." index="4"]
+
+[node name="Spawning" type="Node" parent="States" index="0"]
+script = ExtResource( 4 )
+
+[node name="WalkPipe" type="Node" parent="States" index="1"]
+script = ExtResource( 5 )
+
+[node name="Dying" type="Node" parent="States" index="2"]
+script = ExtResource( 6 )

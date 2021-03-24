@@ -1,0 +1,70 @@
+{
+  "Level": {
+            "Enemies":{
+                        "Plugs":[
+                                  {
+                                    "id": "1",
+                                    "speed":"250",
+                                    "start_position":"1606",
+                                    "targets":["1614","1618"]
+                                  },
+                                  {
+                                    "id": "2",
+                                    "speed":"250",
+                                    "start_position":"1406",
+                                    "targets":["1412","1422"]
+                                  },
+                                  {
+                                    "id": "3",
+                                    "speed":"250",
+                                    "start_position":"2006",
+                                    "targets":["2016","2022"]
+                                  }
+                                ],
+                        "Ants":[
+                                 {
+                                  "id": "1",
+                                  "speed":"250",
+                                  "spawn_frequency":"10",
+                                  "initial_delay":"5"
+                                  }
+                                ],
+                        "Fleas":[
+                                 {
+                                  "id": "1",
+                                  "speed":"250",
+                                  "spawn_frequency":"10",
+                                  "initial_delay":"5"
+                                  },
+                                 {
+                                  "id": "2",
+                                  "speed":"250",
+                                  "spawn_frequency":"12",
+                                  "initial_delay":"11"
+                                  }
+                                ],
+                        "Lobsters":[
+                                 {
+                                  "id": "1",
+                                  "speed":"250",
+                                  "spawn_frequency":"10",
+                                  "initial_delay":"5"
+                                  }
+                                ]
+                      },
+            "Helpers":[
+                        {
+                          "id":"1",
+                          "speed":"100",
+                          "follow_dist":"100",
+                          "work_effeciency":"100"
+                        }
+                      ],
+            "Player_Start_Position":"0814",
+            "Player_Start_Direction":"2",
+            "Target_Fill":"1000",
+            "Next_Level":"02",
+            "PipeData":"051400010001020401012001100111012201000102020101020201010203010120011201220100010202000102020101210111011203100123010001010120011001120310011101120311012101010102030001220111011201100105011101120310012001010102020001020601010202000123011001120105011101210101010203000123011001110122010001020401010205010102040101"
+          }
+
+}

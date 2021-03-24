@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scenes/player/player.gd" type="Script" id=1]
+[ext_resource path="res://scenes/player/gfx/player.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25, 25.7169 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Climb"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 7, 6, 8, 6 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "ClimbStop"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1.03526 ),
+"update": 1,
+"values": [ 6 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Shoot"
+length = 0.16
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.04, 0.08, 0.12 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 4, 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.6
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 2, 0, 1 ]
+}
+
+[node name="player" type="Area2D" groups=[
+"Player",
+]]
+collision_layer = 2
+collision_mask = 36
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 12, -45 )
+z_index = 10
+texture = ExtResource( 2 )
+flip_h = true
+vframes = 2
+hframes = 6
+frame = 5
+region_enabled = true
+region_rect = Rect2( 0, 0, 768, 320 )
+
+[node name="BulletSpawn" type="Position2D" parent="Sprite"]
+position = Vector2( 85.234, 15.7462 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -1.5579, 8.28899 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Climb = SubResource( 2 )
+anims/ClimbStop = SubResource( 3 )
+anims/Shoot = SubResource( 4 )
+anims/StandStill = SubResource( 5 )
+anims/Walk = SubResource( 6 )
+
+[node name="ShootCoolDown" type="Timer" parent="."]
+one_shot = true
+[connection signal="area_entered" from="." to="." method="_on_player_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_player_area_exited"]
+[connection signal="timeout" from="ShootCoolDown" to="." method="_on_ShootCoolDown_timeout"]

@@ -1,0 +1,132 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/types/Ant/Ant.gd" type="Script" id=2]
+[ext_resource path="res://scenes/enemies/types/Ant/States/Climbing.gd" type="Script" id=3]
+[ext_resource path="res://scenes/enemies/types/Ant/States/Walking.gd" type="Script" id=4]
+[ext_resource path="res://scenes/enemies/types/Ant/States/Releasing.gd" type="Script" id=5]
+[ext_resource path="res://scenes/enemies/gfx/characters.png" type="Texture" id=6]
+[ext_resource path="res://scenes/enemies/types/Ant/States/Dying.gd" type="Script" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Climb"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "ClimbStop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Dying"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Walk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 3, 5 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "WalkStop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[node name="Ant" instance=ExtResource( 1 )]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource( 2 )
+type = "Ant"
+
+[node name="States" type="Node" parent="." index="0"]
+
+[node name="Climbing" type="Node" parent="States" index="0"]
+script = ExtResource( 3 )
+
+[node name="Walking" type="Node" parent="States" index="1"]
+script = ExtResource( 4 )
+
+[node name="Releasing" type="Node" parent="States" index="2"]
+script = ExtResource( 5 )
+
+[node name="Dying" type="Node" parent="States" index="3"]
+script = ExtResource( 7 )
+
+[node name="Sprite" parent="." index="1"]
+position = Vector2( 31, 0 )
+texture = ExtResource( 6 )
+vframes = 4
+hframes = 9
+frame = 1
+region_enabled = true
+region_rect = Rect2( 0, 0, 1152, 512 )
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false
+position = Vector2( 33.1656, 26.6853 )
+
+[node name="AnimationPlayer" parent="." index="3"]
+anims/Climb = SubResource( 1 )
+anims/ClimbStop = SubResource( 2 )
+anims/Dying = SubResource( 5 )
+anims/Walk = SubResource( 3 )
+anims/WalkStop = SubResource( 4 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

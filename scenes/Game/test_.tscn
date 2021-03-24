@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/Game/test_.gd" type="Script" id=1]
+[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/pipeline/pipeline.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/enemies/EnemySpawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Game/States/Init.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Game/States/LoadLevel.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Game/States/DrawLevel.gd" type="Script" id=7]
+[ext_resource path="res://scenes/Game/States/Play.gd" type="Script" id=8]
+[ext_resource path="res://scenes/Game/States/Quit.gd" type="Script" id=9]
+
+[node name="Test_Scene" type="Node2D"]
+script = ExtResource( 1 )
+oPlayer = ExtResource( 2 )
+oPipeline = ExtResource( 3 )
+oEnemySpawner = ExtResource( 4 )
+
+[node name="States" type="Node" parent="."]
+
+[node name="Init" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="LoadLevel" type="Node" parent="States"]
+script = ExtResource( 6 )
+
+[node name="DrawLevel" type="Node" parent="States"]
+script = ExtResource( 7 )
+
+[node name="Play" type="Node" parent="States"]
+script = ExtResource( 8 )
+
+[node name="Quit" type="Node" parent="States"]
+script = ExtResource( 9 )
+
+[node name="level" type="Node" parent="."]
+
+[node name="enemies" type="Node" parent="."]
+
+[node name="players" type="Node" parent="."]
+
+[node name="Container" type="Container" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( -575.263, -228.421 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer"]
+margin_right = 143.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="Container/VBoxContainer/HBoxContainer"]
+margin_right = 56.0
+margin_bottom = 14.0
+text = "Position:"
+
+[node name="Label2" type="Label" parent="Container/VBoxContainer/HBoxContainer"]
+margin_left = 60.0
+margin_right = 80.0
+margin_bottom = 14.0
+text = "0,0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Container/VBoxContainer"]
+margin_top = 18.0
+margin_right = 143.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="Container/VBoxContainer/HBoxContainer2"]
+margin_right = 87.0
+margin_bottom = 14.0
+text = "Grid Position:"
+
+[node name="Label2" type="Label" parent="Container/VBoxContainer/HBoxContainer2"]
+margin_left = 91.0
+margin_right = 111.0
+margin_bottom = 14.0
+text = "0,0"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Container/VBoxContainer"]
+margin_top = 36.0
+margin_right = 143.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="Container/VBoxContainer/HBoxContainer3"]
+margin_right = 60.0
+margin_bottom = 14.0
+text = "Tile Info: "
+
+[node name="Label2" type="Label" parent="Container/VBoxContainer/HBoxContainer3"]
+margin_left = 64.0
+margin_right = 69.0
+margin_bottom = 14.0
+text = "-"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Container/VBoxContainer"]
+margin_top = 54.0
+margin_right = 143.0
+margin_bottom = 68.0
+
+[node name="Label2" type="Label" parent="Container/VBoxContainer/HBoxContainer4"]
+margin_right = 94.0
+margin_bottom = 14.0
+text = "Next Tile Info: "
+
+[node name="Label" type="Label" parent="Container/VBoxContainer/HBoxContainer4"]
+margin_left = 98.0
+margin_right = 103.0
+margin_bottom = 14.0
+text = "-"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Container/VBoxContainer"]
+margin_top = 72.0
+margin_right = 143.0
+margin_bottom = 86.0
+
+[node name="Label2" type="Label" parent="Container/VBoxContainer/HBoxContainer5"]
+margin_right = 134.0
+margin_bottom = 14.0
+text = "Clicked tile location: "
+
+[node name="Label" type="Label" parent="Container/VBoxContainer/HBoxContainer5"]
+margin_left = 138.0
+margin_right = 143.0
+margin_bottom = 14.0
+text = "-"
