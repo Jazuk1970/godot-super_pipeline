@@ -4,7 +4,7 @@ var start_pos:Vector2
 # warning-ignore:unused_class_variable
 var target_pos:Vector2
 # warning-ignore:unused_class_variable
-var targets:Array
+var targets:Array = []
 # warning-ignore:unused_class_variable
 var target:Object
 # warning-ignore:unused_class_variable

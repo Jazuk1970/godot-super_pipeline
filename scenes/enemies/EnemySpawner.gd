@@ -54,7 +54,7 @@ func remove_enemies(_num):
 				if Enemies[_type].size() == 0:
 					Enemies.erase(_type)
 			EnemiesForRemoval.erase(_type)
-	
+
 func add_respawn(_type,_id,_delay):
 	if not EnemiesForRespawn.has(_type):
 		EnemiesForRespawn[_type] = {}
@@ -76,7 +76,7 @@ func spawn(_type,_id) -> Object:
 						_e.source_gridpos = globals.getVect(_Enemy.start_position)
 						for _t in _Enemy.targets:
 							_e.targets.append(globals.getVect(_t))
-	
+
 					"Ant","Flea","Lobster":
 						_e.spawn_frequency = _Enemy.spawn_frequency.to_float()
 						_e.initial_delay = _Enemy.initial_delay.to_float()
@@ -85,11 +85,12 @@ func spawn(_type,_id) -> Object:
 						_e.target_gridpos = globals.getVect(_Enemy.target_gridpos)
 				return _e
 	return null
-	
+
 func getType(_type) -> Object:
 	match _type:
 		"Plug":
 			return Plug.instance()
+			#return Plug.new()
 		"Ant":
 			return Ant.instance()
 		"Flea":

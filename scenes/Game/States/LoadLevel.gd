@@ -9,10 +9,10 @@ func enter(_args:Dictionary = {}):
 		_owner.pipeline = _owner.oPipeline.instance()
 		_owner.pipeline.pipestring = globals.Level_Data.PipeData
 		globals.level.add_child(_owner.pipeline)
-		emit_signal("StateChange","DrawLevel")	
+		emit_signal("StateChange","DrawLevel")
 
 func exit(_args:Dictionary = {}):
 	pass
-			
+
 func logic(_args:Dictionary = {}):
 	pass

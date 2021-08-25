@@ -4,7 +4,7 @@ var start_pos:Vector2
 # warning-ignore:unused_class_variable
 var target_pos:Vector2
 # warning-ignore:unused_class_variable
-var targets:Array
+var targets:Array = []
 # warning-ignore:unused_class_variable
 var target:Object
 # warning-ignore:unused_class_variable
@@ -26,8 +26,8 @@ func _ready():
 	pipemap = pipeline.map
 	fsm.add_states($States)
 	start_pos = Vector2(45,35) * globals.tile_size
-	fsm._on_state_change("Spawning")		
-	
+	fsm._on_state_change("Spawning")
+
 func _process(delta):
 	if fsm.state != null:
 		var _args = {"delta":delta}

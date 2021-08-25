@@ -13,7 +13,7 @@ const DEBUG = false
 func state_back():
 	if history.size() > 0:
 		state_change(history.pop_front())
-		
+
 func add_states(_states:Object):
 	states = {}
 	for _state in _states.get_children():
@@ -22,10 +22,10 @@ func add_states(_states:Object):
 			_state.connect("StateComplete", self,"_on_state_complete")
 			_state.connect("StateChange", self,"_on_state_change")
 			_state._owner = _owner
-			
+
 func _on_state_complete():
 	emit_signal("StateCompleted",state)
-	
+
 func _on_state_change(_next_state):
 	if _next_state != null:
 		state_change(_next_state)
@@ -46,4 +46,4 @@ func state_change(_next_state):
 			emit_signal("StateChanged",_next_state)
 		else:
 			if DEBUG:
-				print("Node:", _owner.name,", state: ",_next_state," requested but does not exists") 	
+				print("Node:", _owner.name,", state: ",_next_state," requested but does not exists")

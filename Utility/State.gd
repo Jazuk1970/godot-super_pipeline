@@ -14,7 +14,7 @@ func enter(_args:Dictionary = {}):
 
 func exit(_args:Dictionary = {}):
 	pass
-	
+
 func logic(_args:Dictionary = {}):
 	pass
-		
+

@@ -40,7 +40,7 @@ func _ready():
 	fsm._on_state_change("Init")
 	set_process(true)
 	Level = "level_01"
-	
+
 func _process(delta):
 	if fsm.state != null:
 		var _args = {"delta":delta}
@@ -59,12 +59,12 @@ func _save_level_data():
 	Level_data["helpers"] = {}	#set of helpers (only 1 on super pipeline 1)
 	Level_data["targetfill"] = 1000	#amount of fill required for level
 	Level_data["next_level"] = 0	#next level number
-	
-	#enemy definitions (previsional)
+
+	#enemy definitions (provisional)
 	Level_data["enemies"][0] ={"type":"ant","start_pos":"0101","start_dir":"3","speed":"1","start_delay":"10","freq":"10"}
 	Level_data["enemies"][1] ={"type":"ant","start_pos":"0101","start_dir":"3","speed":"1","start_delay":"10","freq":"10"}
 	Level_data["enemies"][2] ={"type":"lobster","start_pos":"0510","start_dir":"1","speed":"1","start_delay":"15","freq":"20"}
-	
+
 	#helper definitions (provisional)
 	Level_data["helpers"][0] ={"type":"mole","start_pos":"0101","start_dir":"2","speed":"3","start_delay":"0","freq":"0"}
 

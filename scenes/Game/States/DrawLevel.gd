@@ -2,10 +2,10 @@ extends State
 
 func enter(_args:Dictionary = {}):
 	pass
-	
+
 func exit(_args:Dictionary = {}):
 	pass
-			
+
 func logic(_args:Dictionary = {}):
 	if _owner.pipeline._draw_idx == 0 and _owner.pipeline.tmr.is_stopped():
 		_owner.pipeline.draw_pipeline()

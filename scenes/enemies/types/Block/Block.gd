@@ -8,7 +8,7 @@ var source_gridpos:Vector2 = Vector2(42,12)
 # warning-ignore:unused_class_variable
 var target_gridpos:Vector2 = Vector2(42,20)
 # warning-ignore:unused_class_variable
-var targets:Array
+var targets:Array = []
 # warning-ignore:unused_class_variable
 var health = 100
 # warning-ignore:unused_class_variable
@@ -29,7 +29,7 @@ func _process(delta):
 	if fsm.state != null:
 		var _args = {"delta":delta}
 		fsm.state.logic(_args)
-	
+
 func _collided(_a):
 	if _a.is_in_group("Bullet"):
 		#score modifier required
