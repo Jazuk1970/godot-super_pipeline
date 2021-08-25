@@ -171,3 +171,4 @@ func _on_player_area_entered(area):
 func _on_player_area_exited(area):
 	if collisions.has(area):
 		collisions.erase(area)
+

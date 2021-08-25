@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/enemies/types/PipeWalker/Base/States/Spawning.gd" type="Script" id=4]
 [ext_resource path="res://scenes/enemies/types/PipeWalker/Base/States/Walking.gd" type="Script" id=5]
 
+
 [node name="Pipewalker" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 

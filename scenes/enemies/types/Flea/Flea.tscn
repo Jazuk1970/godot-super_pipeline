@@ -9,7 +9,6 @@
 [ext_resource path="res://scenes/enemies/types/Flea/States/WalkPipe.gd" type="Script" id=7]
 [ext_resource path="res://scenes/enemies/types/Flea/States/Dying.gd" type="Script" id=8]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"
 length = 0.28

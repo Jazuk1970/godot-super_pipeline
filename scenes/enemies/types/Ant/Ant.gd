@@ -37,3 +37,7 @@ func _collided(_a):
 
 func _on_Timer_timeout():
 	fsm._on_state_change("Climbing")
+
+func _hit():
+	if fsm.state.name != "Dying":
+		fsm._on_state_change("Dying")

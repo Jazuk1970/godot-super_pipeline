@@ -1,24 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/enemies/enemy.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://scenes/mobs/mob.tscn" type="PackedScene" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 40.6797, 27.9473 )
-
-[node name="enemy" type="Area2D"]
-z_index = 10
+[node name="Enemy" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-[connection signal="area_entered" from="." to="." method="_on_enemy_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_enemy_area_exited"]
+type = "Enemy"

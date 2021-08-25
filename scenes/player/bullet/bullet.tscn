@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/player/bullet/gfx/bullet.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 4 )
+extents = Vector2( 15.0154, 2.02539 )
 
 [node name="Bullet" type="Area2D" groups=[
 "Bullet",
@@ -19,5 +19,6 @@ texture = ExtResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+one_way_collision_margin = 2.0
 [connection signal="area_entered" from="." to="." method="_on_Bullet_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Bullet_area_exited"]

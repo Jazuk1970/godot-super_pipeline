@@ -11,7 +11,7 @@ func logic(_args:Dictionary = {}):
 	var _dist = _owner.speed * _delta
 	move(_dist,_owner.direction)
 	if _owner.gridpos == _owner.target_gridpos:
-		_owner.EnemySpawner.add_respawn(_owner.type,_owner.id,str(1))
+		_owner.Spawner.add_respawn(_owner.type,_owner.id,str(1))
 		var _plugs = get_tree().get_nodes_in_group("Plug")
 		for _plug in _plugs:
 			if _plug.gridpos == _owner.gridpos and _plug.name != _owner.name:

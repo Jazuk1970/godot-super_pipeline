@@ -5,8 +5,8 @@
 [ext_resource path="res://scenes/enemies/types/Ant/States/Climbing.gd" type="Script" id=3]
 [ext_resource path="res://scenes/enemies/types/Ant/States/Walking.gd" type="Script" id=4]
 [ext_resource path="res://scenes/enemies/types/Ant/States/Releasing.gd" type="Script" id=5]
-[ext_resource path="res://scenes/enemies/gfx/characters.png" type="Texture" id=6]
-[ext_resource path="res://scenes/enemies/types/Ant/States/Dying.gd" type="Script" id=7]
+[ext_resource path="res://scenes/enemies/types/Ant/States/Dying.gd" type="Script" id=6]
+[ext_resource path="res://scenes/enemies/gfx/characters.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"
@@ -41,7 +41,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "Dying"
 length = 0.1
 tracks/0/type = "value"
@@ -57,8 +57,7 @@ tracks/0/keys = {
 "values": [ 6 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Walk"
+[sub_resource type="Animation" id=4]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -74,8 +73,7 @@ tracks/0/keys = {
 "values": [ 3, 4, 3, 5 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "WalkStop"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -108,11 +106,11 @@ script = ExtResource( 4 )
 script = ExtResource( 5 )
 
 [node name="Dying" type="Node" parent="States" index="3"]
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 
 [node name="Sprite" parent="." index="1"]
 position = Vector2( 31, 0 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 vframes = 4
 hframes = 9
 frame = 1
@@ -126,7 +124,7 @@ position = Vector2( 33.1656, 26.6853 )
 [node name="AnimationPlayer" parent="." index="3"]
 anims/Climb = SubResource( 1 )
 anims/ClimbStop = SubResource( 2 )
-anims/Dying = SubResource( 5 )
-anims/Walk = SubResource( 3 )
-anims/WalkStop = SubResource( 4 )
+anims/Dying = SubResource( 3 )
+anims/Walk = SubResource( 4 )
+anims/WalkStop = SubResource( 5 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

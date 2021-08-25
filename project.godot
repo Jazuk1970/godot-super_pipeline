@@ -9,10 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area2D",
+"base": "Mob",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://scenes/enemies/enemy.gd"
+}, {
+"base": "Area2D",
+"class": "Mob",
+"language": "GDScript",
+"path": "res://scenes/mobs/mob.gd"
 }, {
 "base": "Node",
 "class": "PipeFollower",
@@ -31,6 +36,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Enemy": "",
+"Mob": "",
 "PipeFollower": "",
 "State": "",
 "StateMachine": ""
@@ -39,6 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Godot-super Pipeline"
+config/description="A version of super Pipeline by TaskSet on the C64"
 run/main_scene="res://scenes/Game/test_.tscn"
 config/icon="res://icon.png"
 
@@ -102,5 +109,9 @@ common/enable_object_picking=false
 
 [rendering]
 
+quality/driver/fallback_to_gles2=true
+quality/2d/use_nvidia_rect_flicker_workaround=true
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
 environment/default_clear_color=Color( 0.0156863, 0.0117647, 0.156863, 1 )
 environment/default_environment="res://default_env.tres"
