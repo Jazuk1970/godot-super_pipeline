@@ -51,8 +51,8 @@
                                  "2":{
                                   "id": "2",
                                   "speed":"350",
-                                  "spawn_frequency":"16",
-                                  "initial_delay":"9"
+                                  "spawn_frequency":"15",
+                                  "initial_delay":"7"
                                   }
                                 },
                         "Lobster":{
@@ -72,13 +72,17 @@
                                   }
                                 }
                       },
-            "Helper":{
-                      "1":{
-                          "id":"1",
-                          "speed":"100",
-                          "follow_dist":"100",
-                          "work_effeciency":"100"
-                        }
+            "Helpers":{
+			"Standard":{
+		                      "1":{
+		                          "id":"1",
+		                          "speed":"375",
+		                          "follow_dist":"100",
+		                          "work_effeciency":"250",
+								  "spawn_frequency":"5",
+		                          "initial_delay":"0"
+	        	                  }
+						}
                       },
             "Player_Start_Position":"0814",
             "Player_Start_Direction":"2",

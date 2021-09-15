@@ -9,14 +9,13 @@ func enter(_args:Dictionary = {}):
 		_p.blockreq = true
 	
 func exit(_args:Dictionary = {}):
-	var _i = pipeline.get_pipe(_owner.gridpos)
-	if _i != -1:
-		var _p = pipeline.pipeline[_i]
-		_p.blockreq = false
-		_owner.gridpos = _owner.source_gridpos
-	_owner.trigger = false
+	pass
 		
 func logic(_args:Dictionary = {}):
 		if _owner.trigger:
-#			emit_signal("StateChange","Waiting")
+			var _i = pipeline.get_pipe(_owner.gridpos)
+			if _i != -1:
+				var _p = pipeline.pipeline[_i]
+				_p.blockreq = false
+			_owner.trigger = false
 			_owner.queue_free()

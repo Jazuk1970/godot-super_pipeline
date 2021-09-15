@@ -1,65 +1,69 @@
 {
   "Level": {
             "Enemies":{
-                        "Plugs":[
-                                  {
+                        "Plug":{
+                                "1":  {
                                     "id": "1",
                                     "speed":"250",
                                     "start_position":"1606",
                                     "targets":["1614","1618"]
                                   },
-                                  {
+                                 "2": {
                                     "id": "2",
                                     "speed":"250",
                                     "start_position":"1406",
                                     "targets":["1412","1422"]
                                   },
-                                  {
+                                 "3": {
                                     "id": "3",
                                     "speed":"250",
                                     "start_position":"2006",
                                     "targets":["2016","2022"]
                                   }
-                                ],
-                        "Ants":[
-                                 {
+                                },
+                        "Ant":{
+                                 "1":{
                                   "id": "1",
                                   "speed":"250",
                                   "spawn_frequency":"10",
                                   "initial_delay":"5"
                                   }
-                                ],
-                        "Fleas":[
-                                 {
+                                },
+                        "Flea":{
+                                 "1":{
                                   "id": "1",
                                   "speed":"250",
                                   "spawn_frequency":"10",
                                   "initial_delay":"5"
                                   },
-                                 {
+                                 "2":{
                                   "id": "2",
                                   "speed":"250",
                                   "spawn_frequency":"12",
                                   "initial_delay":"11"
                                   }
-                                ],
-                        "Lobsters":[
-                                 {
+                                },
+                        "Lobster":{
+                                 "1":{
                                   "id": "1",
                                   "speed":"250",
                                   "spawn_frequency":"10",
                                   "initial_delay":"5"
                                   }
-                                ]
+                                }
                       },
-            "Helpers":[
-                        {
-                          "id":"1",
-                          "speed":"100",
-                          "follow_dist":"100",
-                          "work_effeciency":"100"
-                        }
-                      ],
+            "Helpers":{
+			"Standard":{
+		                      "1":{
+		                          "id":"1",
+		                          "speed":"375",
+		                          "follow_dist":"150",
+		                          "work_effeciency":"100",
+								  "spawn_frequency":"5",
+		                          "initial_delay":"0"
+	        	                  }
+						}
+					},
             "Player_Start_Position":"0814",
             "Player_Start_Direction":"2",
             "Target_Fill":"1000",

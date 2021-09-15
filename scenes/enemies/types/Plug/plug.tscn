@@ -7,7 +7,6 @@
 [ext_resource path="res://scenes/enemies/types/Plug/states/Blocking.gd" type="Script" id=5]
 [ext_resource path="res://scenes/enemies/gfx/plug.png" type="Texture" id=6]
 
-
 [node name="Plug" instance=ExtResource( 1 )]
 collision_layer = 64
 collision_mask = 4
@@ -30,4 +29,4 @@ position = Vector2( 16, 32 )
 texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2( 14.768, 6.12329 )
+position = Vector2( 14.4707, 31.6912 )

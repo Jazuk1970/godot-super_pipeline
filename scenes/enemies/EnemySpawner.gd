@@ -9,6 +9,7 @@ export (PackedScene) var Flea
 export (PackedScene) var Lobster
 # warning-ignore:unused_class_variable
 export (PackedScene) var Block
+
 var Enemies:Dictionary = {}
 var EnemiesForRemoval:Dictionary = {}
 var EnemiesForRespawn:Dictionary = {}

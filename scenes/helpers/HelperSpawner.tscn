@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/helpers/HelperSpawner.gd" type="Script" id=1]
+[ext_resource path="res://scenes/helpers/types/Standard/Standard.tscn" type="PackedScene" id=2]
+
+[node name="HelperSpawner" type="Node"]
+script = ExtResource( 1 )
+Standard = ExtResource( 2 )

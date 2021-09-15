@@ -1,6 +1,6 @@
 extends State
 func enter(_args:Dictionary = {}):
-	_owner.pf.gridpos = choose_target()
+	_owner.pf.gridpos = _owner.drop_pos
 	_owner.target_pos = _owner.pipemap.map_to_world(_owner.pf.gridpos) + Vector2(1,1)
 	_owner.direction = Vector2.DOWN
 	
@@ -22,6 +22,9 @@ func move(_dist,_dir) -> void:
 	else:
 		_owner.position += _dist * _dir
 
-func choose_target() -> Object:
-	randomize()
-	return _owner.target.targets[randi()%_owner.target.targets.size()]
+#func choose_target() -> Object:
+#	randomize()
+#	var _obj:Object = null
+#	while _obj == null:
+#		_obj = _owner.target.targets[randi()%_owner.target.targets.size()]
+#	return _obj

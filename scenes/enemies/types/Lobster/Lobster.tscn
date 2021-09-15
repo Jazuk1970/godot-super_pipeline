@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/types/Lobster/Lobster.gd" type="Script" id=2]
-[ext_resource path="res://scenes/enemies/gfx/characters.png" type="Texture" id=3]
+[ext_resource path="res://scenes/mobs/gfx/characters.png" type="Texture" id=3]
 [ext_resource path="res://scenes/enemies/types/Lobster/States/Spawning.gd" type="Script" id=4]
 [ext_resource path="res://scenes/enemies/types/Lobster/States/WalkPipe.gd" type="Script" id=5]
 [ext_resource path="res://scenes/enemies/types/Lobster/States/Dying.gd" type="Script" id=6]
@@ -49,7 +49,7 @@ script = ExtResource( 2 )
 type = "Lobster"
 
 [node name="Sprite" parent="." index="0"]
-position = Vector2( 0, -22 )
+position = Vector2( -14, -22 )
 texture = ExtResource( 3 )
 hframes = 6
 frame = 2
@@ -57,7 +57,7 @@ region_enabled = true
 region_rect = Rect2( 8, 296, 752, 101.334 )
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2( 0.37671, -21.2706 )
+position = Vector2( -15.3555, -19.0231 )
 
 [node name="AnimationPlayer" parent="." index="2"]
 anims/Climb = SubResource( 1 )

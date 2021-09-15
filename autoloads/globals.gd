@@ -11,6 +11,8 @@ var players:Object
 # warning-ignore:unused_class_variable
 var enemies:Object
 # warning-ignore:unused_class_variable
+var helpers:Object
+# warning-ignore:unused_class_variable
 var Level_Data:Dictionary
 
 func _ready():

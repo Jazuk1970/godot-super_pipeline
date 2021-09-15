@@ -6,6 +6,8 @@ export (PackedScene) var oPlayer
 export (PackedScene) var oPipeline
 # warning-ignore:unused_class_variable
 export (PackedScene) var oEnemySpawner
+# warning-ignore:unused_class_variable
+export (PackedScene) var oHelperSpawner
 
 #object refenences
 
@@ -33,13 +35,14 @@ func _ready():
 	globals.mainscene = self
 	globals.level = $level
 	globals.enemies = $enemies
+	globals.helpers = $helpers
 	globals.players = $players
 
 	fsm._owner = self
 	fsm.add_states($States)
 	fsm._on_state_change("Init")
 	set_process(true)
-	Level = "level_01"
+	Level = "level_16"
 
 func _process(delta):
 	if fsm.state != null:

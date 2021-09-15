@@ -5,6 +5,9 @@ func enter(_args:Dictionary = {}):
 	_owner.pipeline.startflow = true
 	var _es = _owner.oEnemySpawner.instance()
 	globals.level.add_child(_es)
+	var _hs = _owner.oHelperSpawner.instance()
+	globals.level.add_child(_hs)
+
 	pass
 
 func exit(_args:Dictionary = {}):

@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/enemies/types/Ant/States/Walking.gd" type="Script" id=4]
 [ext_resource path="res://scenes/enemies/types/Ant/States/Releasing.gd" type="Script" id=5]
 [ext_resource path="res://scenes/enemies/types/Ant/States/Dying.gd" type="Script" id=6]
-[ext_resource path="res://scenes/enemies/gfx/characters.png" type="Texture" id=7]
+[ext_resource path="res://scenes/mobs/gfx/characters.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"
@@ -118,8 +118,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1152, 512 )
 
 [node name="CollisionShape2D" parent="." index="2"]
-visible = false
-position = Vector2( 33.1656, 26.6853 )
+position = Vector2( 32.0431, 24.721 )
 
 [node name="AnimationPlayer" parent="." index="3"]
 anims/Climb = SubResource( 1 )

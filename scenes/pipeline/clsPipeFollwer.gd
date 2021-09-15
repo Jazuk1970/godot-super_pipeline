@@ -11,6 +11,8 @@ var inputdirection:Vector2
 # warning-ignore:unused_class_variable
 var prevdirection:Vector2
 # warning-ignore:unused_class_variable
+var preprevdirection:Vector2
+# warning-ignore:unused_class_variable
 var lastmovement:Vector2
 # warning-ignore:unused_class_variable
 var ti:Array = [0,'',false,false,Vector2.ZERO,Vector2.ZERO,0]

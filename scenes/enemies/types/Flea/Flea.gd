@@ -4,6 +4,8 @@ var start_pos:Vector2
 # warning-ignore:unused_class_variable
 var target_pos:Vector2
 # warning-ignore:unused_class_variable
+var drop_pos:Vector2
+# warning-ignore:unused_class_variable
 var targets:Array = []
 # warning-ignore:unused_class_variable
 var target:Object
@@ -25,7 +27,7 @@ func _ready():
 	pipeline = globals.level.get_node("pipeline")
 	pipemap = pipeline.map
 	fsm.add_states($States)
-	start_pos = Vector2(45,35) * globals.tile_size
+	start_pos = (Vector2(45,35) * globals.tile_size) + Vector2(14,0)
 	fsm._on_state_change("Climbing")
 
 func _process(delta):

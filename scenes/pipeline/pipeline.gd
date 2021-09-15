@@ -3,6 +3,7 @@ signal flow_output
 signal draw_done
 enum{NONE = 0,RIGHT = 1,LEFT = 2,UP= 3,DOWN =4}
 enum{HORIZONTAL = 0, VERTICAL = 1, CORNER = 2}
+enum{TILE_NONE,TILE_START,TILE_END,TILE_HORIZONTAL,TILE_VERTICAL,TILE_CROSS,TILE_CORNER}
 const blank_tile:int = 10
 const _topHMove:int = 1
 const _leftVMove:int = 1
@@ -14,6 +15,7 @@ var _range2:Array = range(17,32)
 onready var map = $pipemap
 onready var pipefilling = $PipeFilling
 onready var tmr = $Timer
+onready var navmap = $navmap
 export var _colours:Array = [Color8(255,255,255),Color8(255,255,255),Color8(255,255,255),Color8(255,255,255),Color8(255,255,255),Color8(255,255,255),Color8(255,255,255),Color8(255,255,255)]
 export (PackedScene) var oPipe
 var flow_rate:float = 0.03
@@ -34,6 +36,8 @@ var _direction:Vector2 = Vector2.ZERO
 var _gridpos:Vector2 = Vector2.ZERO
 var allowed_moves:Dictionary
 var movelist:Dictionary
+var _path:Array = []
+var _path_compiled:bool = false
 var _draw_idx:int = 0
 var _reps:int = 0
 var _type:int = 0
@@ -83,9 +87,9 @@ func _process(_delta):
 func parse_pipestring(_ps) -> Array: #Returns pipe data array
 #parse the pipe string and return an data structure array where:
 #the first element is the starting position,
-#the second element is the starting direction : 0001 - right, 0002 - left, 003 - up, 0004 - down 
+#the second element is the starting direction : 0001 - right, 0002 - left, 003 - up, 0004 - down
 #and all following elements are pipe codes and number of repeats
-#pipe codes: 
+#pipe codes:
 #00 - horizontal left end
 #01 - horizontal right end
 #02 - horizontal
@@ -101,6 +105,8 @@ func parse_pipestring(_ps) -> Array: #Returns pipe data array
 #99 - position move - note the xx after the 99 denotes direction
 	var _pd:Array = []
 	var _parsed:String = _ps
+	_path.clear()
+	_path_compiled = false
 	_parsed = _parsed.replace('"','')
 	while _parsed.length() > 0:
 		var _s:String = _parsed.left(4)
@@ -112,14 +118,38 @@ func parse_pipestring(_ps) -> Array: #Returns pipe data array
 	return _pd
 
 func _draw_pipe(_pd) -> bool: #Returns true when drawing complete
+	var _pathpos:Vector2 = Vector2.ZERO
 	if _draw_idx == 0:	#Is this the start of the pipe (starting position)
 		_gridpos.x = _pd[_draw_idx][0]
 		_gridpos.y = _pd[_draw_idx][1]
 		_draw_idx += 1
 		_fillcol = _colours[_pd[_draw_idx][0]]
 		_direction = _dir[_pd[_draw_idx][1]]
+		#Attempt to create a set of path nodes
+		match _direction:
+			Vector2.UP:
+				_pathpos = _gridpos+Vector2(1,-1)
+			Vector2.DOWN:
+				_pathpos = _gridpos+Vector2(1,1)
+			Vector2.LEFT:
+				_pathpos = _gridpos+Vector2(1,0)
+			Vector2.RIGHT:
+				_pathpos = _gridpos+Vector2(-1,0)
+		_path.append([_pathpos,TILE_START])
 	if _reps == 0:
 		if _draw_idx >= _pd.size() -1:
+			if not _path_compiled:
+				match _direction:
+					Vector2.UP:
+						_pathpos = _gridpos+Vector2(0,-1)
+					Vector2.DOWN:
+						_pathpos = _gridpos+Vector2(0,1)
+					Vector2.LEFT:
+						_pathpos = _gridpos+Vector2(-1,0)
+					Vector2.RIGHT:
+						_pathpos = _gridpos+Vector2(0,0)
+				_path.append([_pathpos,TILE_END])
+				_path_compiled = true
 			return true
 		_draw_idx += 1
 		if _pd[_draw_idx][0] == elementtypes.move:
@@ -140,6 +170,7 @@ func _add_element(_e):
 	var _fx:bool = false
 	var _fy:bool = false
 	var _tile = elementtiles[_e]
+	var _pathpos:Vector2 = Vector2.ZERO
 
 	match _e:
 		0,2:	#Horizontal left end and horizontal
@@ -159,25 +190,30 @@ func _add_element(_e):
 				map.set_cellv(_gridpos,_tile,not _fx,_fy)
 				map.set_cellv(_gridpos+Vector2(-1,1),_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(0,1),_tile,not _fx,not _fy)
+				_pathpos = _gridpos+Vector2(0,0)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
 			elif _direction == _dir[RIGHT]:
 				map.set_cellv(_gridpos,_tile,_fx,_fy)
 				map.set_cellv(_gridpos+Vector2(1,0),_tile,not _fx,_fy)
 				map.set_cellv(_gridpos+Vector2(0,1),_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(1,1),_tile,not _fx,not _fy)
+				_pathpos = _gridpos+Vector2(1,0)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
 			elif _direction == _dir[UP]:
 				map.set_cellv(_gridpos+Vector2(0,-1),_tile,_fx,_fy)
 				map.set_cellv(_gridpos+Vector2(1,-1),_tile,not _fx,_fy)
 				map.set_cellv(_gridpos+Vector2(0,0),_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(1,0),_tile,not _fx,not _fy)
+				_pathpos = _gridpos+Vector2(1,-1)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
 			elif _direction == _dir[DOWN]:
 				map.set_cellv(_gridpos,_tile,_fx,_fy)
 				map.set_cellv(_gridpos+Vector2(1,0),_tile,not _fx,_fy)
 				map.set_cellv(_gridpos+Vector2(0,1),_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(1,1),_tile,not _fx,not _fy)
+				_pathpos = _gridpos+Vector2(1,0)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
+			_path.append([_pathpos,TILE_CROSS])
 			_gridpos += _direction * 2
 
 		10,12:	#Vertical top end and vertical
@@ -192,47 +228,56 @@ func _add_element(_e):
 			_add_pipefilling(_gridpos,_e,_fx,_fy)
 			_gridpos += _direction
 		15:	#Vertical cross
+			_pathpos = _gridpos+Vector2(0,1)
 			if _direction == _dir[DOWN]:
 				map.set_cellv(_gridpos,_tile,_fx,_fy)
 				map.set_cellv(_gridpos+Vector2(1,0),_tile,not _fx,_fy)
 				map.set_cellv(_gridpos+Vector2(0,1),_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(1,1),_tile,not _fx,not _fy)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
+				_pathpos = _gridpos+Vector2(1,0)
 			elif _direction == _dir[UP]:
 				map.set_cellv(_gridpos+Vector2(0,-1),_tile,_fx,_fy)
 				map.set_cellv(_gridpos+Vector2(1,-1),_tile,not _fx,_fy)
 				map.set_cellv(_gridpos,_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(1,0),_tile,not _fx,not _fy)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
+				_pathpos = _gridpos+Vector2(1,-1)
 			elif _direction == _dir[LEFT]:
 				map.set_cellv(_gridpos+Vector2(-1,0),_tile,_fx,_fy)
 				map.set_cellv(_gridpos+Vector2(0,0),_tile,not _fx,_fy)
 				map.set_cellv(_gridpos+Vector2(-1,1),_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(0,1),_tile,not _fx,not _fy)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
+				_pathpos = _gridpos+Vector2(0,0)
 			elif _direction == _dir[RIGHT]:
 				map.set_cellv(_gridpos,_tile,_fx,_fy)
 				map.set_cellv(_gridpos+Vector2(1,0),_tile,not _fx,_fy)
 				map.set_cellv(_gridpos+Vector2(0,1),_tile,_fx,not _fy)
 				map.set_cellv(_gridpos+Vector2(1,1),_tile,not _fx,not _fy)
 				_add_pipefilling(_gridpos,_e,_fx,_fy)
+				_pathpos = _gridpos+Vector2(1,0)
+			_path.append([_pathpos,TILE_CROSS])
 			_gridpos += _direction * 2
 		20:	#Corner right/down or up/left
 			var _gp:Vector2
 			var _ngp:Vector2
 			if _direction == _dir[RIGHT]:
 				_gp = _gridpos
-				_ngp = _gp + Vector2(0,2) 
+				_ngp = _gp + Vector2(0,2)
 				_direction = _dir[DOWN]
+				_pathpos = _gridpos+Vector2(1,0)
 			else:
 				_gp = _gridpos + Vector2(0,-1)
 				_ngp = _gp + Vector2(-1,0)
 				_direction = _dir[LEFT]
+				_pathpos = _gridpos+Vector2(1,-1)
 			map.set_cellv(_gp,_tile,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,0),_tile+1,_fx,_fy)
 			map.set_cellv(_gp + Vector2(0,1),_tile+2,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,1),_tile+3,_fx,_fy)
 			_add_pipefilling(_gp,_e,_fx,_fy)
+			_path.append([_pathpos,TILE_CORNER])
 			_gridpos = _ngp
 
 		21:	#Corner down/left or right/up
@@ -241,17 +286,20 @@ func _add_element(_e):
 			_fy = true
 			if _direction == _dir[DOWN]:
 				_gp = _gridpos
-				_ngp = _gp + Vector2(-1,0) 
+				_ngp = _gp + Vector2(-1,0)
 				_direction = _dir[LEFT]
+				_pathpos = _gridpos+Vector2(1,0)
 			else:
 				_gp = _gridpos
 				_ngp = _gp + Vector2(0,-1)
 				_direction = _dir[UP]
+				_pathpos = _gridpos+Vector2(1,0)
 			map.set_cellv(_gp,_tile+2,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,0),_tile+3,_fx,_fy)
 			map.set_cellv(_gp + Vector2(0,1),_tile+0,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,1),_tile+1,_fx,_fy)
 			_add_pipefilling(_gp,_e,_fx,_fy)
+			_path.append([_pathpos,TILE_CORNER])
 			_gridpos = _ngp
 		22:	#corner left/up  or down/right
 			var _gp:Vector2
@@ -260,17 +308,20 @@ func _add_element(_e):
 			_fy = true
 			if _direction == _dir[LEFT]:
 				_gp = _gridpos + Vector2(-1,0)
-				_ngp = _gp + Vector2(0,-1) 
+				_ngp = _gp + Vector2(0,-1)
 				_direction = _dir[UP]
+				_pathpos = _gridpos+Vector2(0,0)#(1,0)
 			else:
 				_gp = _gridpos
 				_ngp = _gp + Vector2(2,0)
 				_direction = _dir[RIGHT]
+				_pathpos = _gridpos+Vector2(1,0)
 			map.set_cellv(_gp,_tile+3,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,0),_tile+2,_fx,_fy)
 			map.set_cellv(_gp + Vector2(0,1),_tile+1,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,1),_tile+0,_fx,_fy)
 			_add_pipefilling(_gp,_e,_fx,_fy)
+			_path.append([_pathpos,TILE_CORNER])
 			_gridpos = _ngp
 		23:	#Corner up/right or left/down
 			var _gp:Vector2
@@ -278,18 +329,23 @@ func _add_element(_e):
 			_fx = true
 			if _direction == _dir[UP]:
 				_gp = _gridpos + Vector2(0,-1)
-				_ngp = _gp + Vector2(2,0) 
+				_ngp = _gp + Vector2(2,0)
 				_direction = _dir[RIGHT]
+				_pathpos = _gridpos+Vector2(1,-1)#(0,1)
 			else:
 				_gp = _gridpos + Vector2(-1,0)
 				_ngp = _gp + Vector2(0,2)
 				_direction = _dir[DOWN]
+				_pathpos = _gridpos+Vector2(0,0)
 			map.set_cellv(_gp,_tile+1,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,0),_tile,_fx,_fy)
 			map.set_cellv(_gp + Vector2(0,1),_tile+3,_fx,_fy)
 			map.set_cellv(_gp + Vector2(1,1),_tile+2,_fx,_fy)
 			_add_pipefilling(_gp,_e,_fx,_fy)
+			_path.append([_pathpos,TILE_CORNER])
 			_gridpos = _ngp
+
+
 
 func _add_pipefilling(_pos,_e,_fx,_fy):
 	var _basetype = int (_e / 10)
@@ -387,7 +443,7 @@ func _add_pipefilling(_pos,_e,_fx,_fy):
 				else:
 					_oPipe.position = map.map_to_world(_pos)
 				_oPipe.grid_position = _pos
-					
+
 				_oPipe.name = "pipe_" + str(_e).pad_zeros(2) + "_" +str(pipeline.size()).pad_zeros(4)
 				_oPipe.flow_rate = flow_rate
 				if _direction == _dir[RIGHT] or \
@@ -492,13 +548,14 @@ func get_pipe(_pos) -> int:
 	for i in range (pipeline.size()-1):
 		if pipeline[i].grid_position == _pos:
 			return i
-	return -1			
+	return -1
 
 func _on_Timer_timeout():
 	_draw_done = _draw_pipe(pipedata)
 	if not _draw_done:
 		tmr.start(draw_rate)
 	else:
+		_create_navmap()
 		emit_signal("draw_done")
 
 func _startflow(_val):
@@ -522,6 +579,11 @@ func _draw():
 		draw_line(Vector2(_col,0),Vector2(_col,_maxheight),Color8(88,88,88,55),1.0)
 	for _row in range(0,_maxheight,32):
 		draw_line(Vector2(0,_row),Vector2(_maxwidth,_row),Color8(88,88,88,55),1.0)
+	if _path_compiled:
+		for _e in _path.size():
+			if _e < _path.size() -1:
+				draw_line(_path[_e][0]*32,_path[_e+1][0]*32,Color8(00,250,00),1,0)
+			draw_circle(_path[_e][0]*32,5,Color8(0,255,255))
 
 func _createmovelist() -> Dictionary:
 	var _ml = {}
@@ -541,7 +603,7 @@ func _createmovelist() -> Dictionary:
 	_ml[3002] = {Vector2.UP:[[_leftVMove],[]],Vector2.DOWN:[[_leftVMove],[]]}
 	_ml[3003] = {Vector2.UP:[[_leftVMove],[]],Vector2.DOWN:[[_leftVMove],[]]}
 	_ml[3005] = {Vector2.UP:[[_leftVMove],[]],Vector2.DOWN:[[_leftVMove],[]]}
-	
+
 	#cross tile movments
 	_ml[2] = {
 		Vector2.RIGHT:[[],[_range1]],Vector2.LEFT:[[],[_range1]],
@@ -584,7 +646,72 @@ func _set_allowed_moves() -> Dictionary:
 	_am[Vector2.DOWN] = {2:[2002],3:[2,4,5,2003,3009],4:[2,3,2003,2008,3009],5:[2005],6:[3,4,8],7:[9],8:[3,4,2003],9:[1003,1004],1002:[3002],1003:[1002,1004,1005,3003,3008],1004:[1002,1003,1005,2009,3003,3008],1005:[3005],1006:[1008],1007:[1009],1008:[1003,1004],1009:[3,4],2002:[3,4,2003,3009],2003:[2,4,5,2008,3009],2005:[3,4,2003],3002:[1003,1004,3003,3008],3003:[1002,1004,2009,3008],3005:[1003,1004,1005,3003]}
 	return _am
 
-func checkmove(_pf:PipeFollower):# -> PipeFollower:
+func checkmove(_pf:PipeFollower,_intilemove:bool = true):# -> PipeFollower:
+	var _navtile:int
+	#Get the centre world position of the current tile
+	var _gridworldpos:Vector2 = navmap.map_to_world(_pf.gridpos)
+	var _intilemov_minus:Vector2 = (_pf.position - _gridworldpos).abs()
+	var _intilemov_plus:Vector2 = Vector2(32,32) - _intilemov_minus.abs()
+
+	_navtile = navmap.get_cellv(_pf.gridpos)
+	if _navtile == TILE_HORIZONTAL:
+		_pf.available_directions[Vector2.LEFT] = 1.0
+		_pf.available_directions[Vector2.RIGHT] = 1.0
+		_pf.available_directions[Vector2.UP] = 0.0
+		_pf.available_directions[Vector2.DOWN] = 0.0
+	elif _navtile == TILE_VERTICAL:
+		_pf.available_directions[Vector2.LEFT] = 0.0
+		_pf.available_directions[Vector2.RIGHT] = 0.0
+		_pf.available_directions[Vector2.UP] = 1.0
+		_pf.available_directions[Vector2.DOWN] = 1.0
+	elif _navtile == TILE_CROSS:
+		_pf.available_directions[Vector2.LEFT] = 1.0
+		_pf.available_directions[Vector2.RIGHT] = 1.0
+		_pf.available_directions[Vector2.UP] = 1.0
+		_pf.available_directions[Vector2.DOWN] = 1.0
+	elif _navtile == TILE_START or _navtile == TILE_END:
+		if navmap.get_cellv(_pf.gridpos + Vector2.LEFT) == -1:
+			_pf.available_directions[Vector2.LEFT] = 0.0
+		else:
+			_pf.available_directions[Vector2.LEFT] = 1.0
+		if navmap.get_cellv(_pf.gridpos + Vector2.RIGHT) == -1:
+			_pf.available_directions[Vector2.RIGHT] = 0.0
+		else:
+			_pf.available_directions[Vector2.RIGHT] = 1.0
+		_pf.available_directions[Vector2.UP] = 0.0
+		_pf.available_directions[Vector2.DOWN] = 0.0
+	elif _navtile == TILE_CORNER:
+		if navmap.get_cellv(_pf.gridpos + Vector2.LEFT)== -1 and (_intilemov_minus.x < _pf.dist +1 or not _intilemove):
+			_pf.available_directions[Vector2.LEFT ] = 0.0
+		else:
+			_pf.available_directions[Vector2.LEFT] = 1.0
+		if navmap.get_cellv(_pf.gridpos + Vector2.RIGHT) == -1 and (_intilemov_plus.x < _pf.dist +1 or not _intilemove):
+			_pf.available_directions[Vector2.RIGHT] = 0.0
+		else:
+			_pf.available_directions[Vector2.RIGHT] = 1.0
+		if navmap.get_cellv(_pf.gridpos + Vector2.UP) == -1 :#and _intilemov_minus.y < _pf.dist:
+			_pf.available_directions[Vector2.UP] = 0.0
+		else:
+			_pf.available_directions[Vector2.UP] = 1.0
+		if navmap.get_cellv(_pf.gridpos + Vector2.DOWN) == -1 :# and _intilemov_plus.y < _pf.dist:
+			_pf.available_directions[Vector2.DOWN] = 0.0
+		else:
+			_pf.available_directions[Vector2.DOWN] = 1.0
+
+	else:
+		_pf.available_directions[Vector2.LEFT] = 0.0
+		_pf.available_directions[Vector2.RIGHT] = 0.0
+		_pf.available_directions[Vector2.UP] = 0.0
+		_pf.available_directions[Vector2.DOWN] = 0.0
+	if _pf.direction:
+		_pf.dist = float(_pf.available_directions[_pf.direction]*_pf.dist)
+	else:
+		_pf.dist = 0.0
+	return
+
+
+
+	#original checkmove code
 	_pf.ti = _get_tile_info(_pf.position,_pf.gridpos)	#get current tile information
 #	_pf.nti = _next_tile_in_direction(_pf.position,_pf.gridpos,_pf.direction) #get next tile informaiton
 	_pf.intilemoveOK = false
@@ -606,7 +733,7 @@ func checkmove(_pf:PipeFollower):# -> PipeFollower:
 	else:
 		_pf.dist = 0.0
 	return# _pf
-	
+
 # warning-ignore:shadowed_variable
 func _ismovevalid(_pf, _dir) -> float:
 	var _ml = _getmovelist(movelist,_pf.ti[6])
@@ -634,8 +761,8 @@ func _checknexttilemove(_dist, _dir, _prevdir,_uctv,_untv) -> bool:
 		_am = allowed_moves[_dir][_uctv]
 		if _am.has(_untv) or _uctv == _untv:
 			return true
-	return false	
-	
+	return false
+
 # warning-ignore:shadowed_variable
 func _distance_to_next_tile(_pos:Vector2,_gp:Vector2,_dir:Vector2) -> float:
 	var _wgp = map.map_to_world(_gp + _dir)
@@ -653,8 +780,8 @@ func _distance_to_next_tile(_pos:Vector2,_gp:Vector2,_dir:Vector2) -> float:
 # warning-ignore:shadowed_variable
 func _next_tile_in_direction(_pos:Vector2,_gp:Vector2,_dir:Vector2) -> Array:
 	var _t = _get_tile_info(position,_gp + _dir)
-	_t.append(_distance_to_next_tile(_pos,_gp,_dir)) 
-	return _t 
+	_t.append(_distance_to_next_tile(_pos,_gp,_dir))
+	return _t
 
 func _get_tile_info(_pos,_gp) -> Array:
 	var _a = []
@@ -722,10 +849,56 @@ func draw_roof():
 	var _start_pos = Vector2(0,6)
 	for _l in range(50):
 		map.set_cell(_start_pos.x + _l, _start_pos.y,12)
-	
+
 func draw_ladder():
 	var _start_pos = Vector2(44,7)
 	for _l in range(26):
 		map.set_cell(_start_pos.x, _start_pos.y + _l,11)
 		map.set_cell(_start_pos.x +1, _start_pos.y + _l,11,true)
-		
+
+func _create_navmap():
+	var _sp:Vector2
+	var _ep:Vector2
+	var _data:Array = []
+	var _ti:int
+	var _dir:int
+	var _fr:int
+	var _rs:int
+	var _fp:Vector2
+	for _e in _path.size()-1:
+		#get the start point, end point and type of tile at the start point
+		_data = _path[_e]
+		_sp = _data[0]
+		_ti = _data[1]
+		_data = _path[_e+1]
+		_ep = _data[0]
+		navmap.set_cellv(_sp,_ti)
+		#check the direction of travel between start point and end point
+		if _sp.x == _ep.x:
+			_dir = TILE_VERTICAL
+			_fr = _ep.y - _sp.y
+		elif _sp.y == _ep.y:
+			_dir = TILE_HORIZONTAL
+			_fr = _ep.x - _sp.x
+		else:
+			_dir = TILE_HORIZONTAL
+			_fr = _ep.x - _sp.x
+		if _fr < 0:
+			_rs = -1
+		else:
+			_rs = 1
+		for _fill in range(_rs,_fr,_rs):
+
+			if _dir == TILE_VERTICAL:
+				_fp = _sp + Vector2(0,_fill)
+			else:
+				_fp = _sp + Vector2(_fill,0)
+			navmap.set_cellv(_fp,_dir)
+	_data = _path.back()
+	navmap.set_cellv(_data[0],_data[1])
+
+func _pctTile(_p:Vector2,_s:Vector2 = Vector2(32,32)) -> Vector2:
+	var _pct:Vector2
+	_pct.x = _s.x / _p.x
+	_pct.y = _s.y / _p.y
+	return _pct

@@ -1,6 +1,7 @@
 extends Area2D
 #Preload scenes
 var oBullet = preload("res://scenes/player/bullet/bullet.tscn")
+signal directionchange
 # warning-ignore:unused_class_variable
 onready var parent = get_parent()
 onready var spr = $Sprite
@@ -24,7 +25,7 @@ func _ready():
 	anim.play("StandStill")
 	pf.facingdirection = Vector2.RIGHT
 	_setposition(pipemap.map_to_world(pf.gridpos) + Vector2(1,1))
-		
+
 func _process(delta):
 	pf.inputdirection = get_input_direction()
 	var _ld:Vector2
@@ -39,7 +40,7 @@ func _process(delta):
 			pipeline.checkmove(pf)
 #			pf.dist = pf.available_directions[pf.direction]
 			#if we cannot move in the same direction as last time or we are at a junction, try the other direction
-			if pf.dist == 0 or (pf.ti[6] in [2,1002] and not pf.supressdirchange):
+			if pf.dist == 0:# or (pf.ti[6] in [2,1002] and not pf.supressdirchange):
 				pf.supressdirchange = true
 				if pf.lastmovement == Vector2.RIGHT:
 					pf.direction = pf.inputdirection * Vector2.DOWN
@@ -58,28 +59,27 @@ func _process(delta):
 #			pf.dist = pf.available_directions[pf.direction]
 #			pf =  pipeline.checkmove(pf)
 
-		if pf.direction.x > 0 or abs(pf.direction.y) > 0: 
+		if pf.direction.x > 0 or abs(pf.direction.y) > 0:
 			spr.flip_h = true
 			bulletspawn.position.x = abs(bulletspawn.position.x)
-		else: 
+		else:
 			spr.flip_h = false
 			bulletspawn.position.x = abs(bulletspawn.position.x) * -1
+		if pf.direction.y != 0:
+			pf.position.x = pipemap.map_to_world(pf.gridpos).x + 16
 
-
-		if pf.dist:		
+		if pf.dist:
 			pf = move(pf)
-	else:		
+	else:
 		pf.moving = false
 	if Input.is_action_pressed("fire") and canshoot and not pf.moving and pf.facingdirection.abs() == Vector2.RIGHT:
 		_shoot(pf)
-		
+
 #	pf = _setanimation(pf)
 	_setanimation(pf)
 	var _atm = true if pf.dist else false
 	globals.mainscene.PlayerPos.text = str(position, " , pos in tile: ",utility.vect2Int(pf.ti[5]), " , Able to move: ",_atm, " , Moving: ",pf.moving, " , Facing Direction: ",pf.facingdirection)
 	globals.mainscene.PlayerGridPos.text = str(pf.gridpos, " , Rel Dist: ",position - pipemap.map_to_world(pf.gridpos))
-	globals.mainscene.TileInfo.text = str(pf.ti," ,UTV: ",pf.ti[6]," ,LM: ",pf.lastmovement)
-	globals.mainscene.NextTileInfo.text = str(pf.nti)
 
 func get_input_direction():
 	var _id = Vector2()
@@ -89,13 +89,19 @@ func get_input_direction():
 
 func move(_pf) -> PipeFollower:
 	_pf.moving = true
+#	emit_signal("directionchange",[_pf.direction,_pf.gridpos,_pf.lastmovement,"update"])
 	_setposition(_pf.position + (_pf.dist * _pf.direction))
 	var _axis = _pf.direction.abs()
 	if _pf.direction != _pf.prevdirection and _pf.direction:
 		_pf.prevdirection = _pf.direction
+		#emit_signal("directionchange",[_pf.direction,position,"dir change"])
+		emit_signal("directionchange",[_pf.position,_pf.direction])
+
 	if _pf.lastmovement != _axis:
 		_pf.lastmovement = _axis
+
 		var _pos = pipemap.map_to_world(_pf.gridpos)
+		#emit_signal("directionchange",[_pf.direction,_pos,"axis_change"])
 		if _axis == Vector2.RIGHT:
 			_pos.y += pipeline._topHMove
 			_pos.x = _pf.position.x
@@ -107,7 +113,7 @@ func move(_pf) -> PipeFollower:
 					_pos.y = _pf.position.y
 					_setposition(_pos)
 				1002,1005,1006,3008:
-					_pos.x += pipeline._leftVMove 
+					_pos.x += pipeline._leftVMove
 					_pos.y = _pf.position.y
 					_setposition(_pos)
 	return _pf
@@ -122,7 +128,7 @@ func _shoot(_pf):
 	scdtimer.start(cooldowntime)
 	canshoot = false
 
-	
+
 func _setposition(_p):
 	pf.position = _p
 	position = _p.snapped(Vector2(1,1))
@@ -144,7 +150,7 @@ func _setanimation(_pf):# -> PipeFollower:
 				Vector2.UP, Vector2.DOWN:
 					anim.play("Climb")
 	else:
-		if _pf.inputdirection.abs() == Vector2.RIGHT and not _pf.moving: 
+		if _pf.inputdirection.abs() == Vector2.RIGHT and not _pf.moving:
 			_pf.facingdirection = _pf.inputdirection
 		if anim.current_animation in ["Walk","Climb"] or _pf.facingdirection != _pf.fdmemory:
 			match _pf.facingdirection:

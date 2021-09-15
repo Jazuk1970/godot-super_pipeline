@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/characters.png-be153fa6fbb36c2c879d3f1f989353b2.stex"
+path="res://.import/characters.png-d50f070c47ac59d58e34bd4291427e49.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/enemies/gfx/characters.png"
-dest_files=[ "res://.import/characters.png-be153fa6fbb36c2c879d3f1f989353b2.stex" ]
+source_file="res://scenes/mobs/gfx/characters.png"
+dest_files=[ "res://.import/characters.png-d50f070c47ac59d58e34bd4291427e49.stex" ]
 
 [params]
 

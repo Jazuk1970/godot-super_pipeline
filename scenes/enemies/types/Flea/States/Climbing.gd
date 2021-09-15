@@ -4,11 +4,12 @@ func enter(_args:Dictionary = {}):
 	_owner.direction = Vector2.UP
 	_owner.target = choose_target()
 	_owner.target_pos = _owner.target.position + Vector2(12,-14)
+	_owner.drop_pos = _owner.target.targets[randi()%_owner.target.targets.size()]
 	_owner.anim.play("Climb")
-	
+
 func exit(_args:Dictionary = {}):
 	pass
-	
+
 func logic(_args:Dictionary = {}):
 	var _delta = _args["delta"]
 	var _dist = _owner.speed * _delta
@@ -21,7 +22,7 @@ func move(_dist,_dir) -> void:
 		_owner.position.y = _owner.target_pos.y
 	else:
 		_owner.position += _dist * _dir
-		
+
 func choose_target() -> Object:
 	var _plugs = get_tree().get_nodes_in_group("Plug")
 	for _plug in _plugs:

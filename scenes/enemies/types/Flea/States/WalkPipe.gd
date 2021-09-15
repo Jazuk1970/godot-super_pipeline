@@ -7,8 +7,11 @@ func exit(_args:Dictionary = {}):
 
 func logic(_args:Dictionary = {}):
 	var _delta = _args["delta"]
+	if _owner.pf.preprevdirection == Vector2.ZERO:
+		_owner.pf.preprevdirection = Vector2(_owner.pf.direction.y,_owner.pf.direction.x)
+
 	_owner.pf.dist = _owner.speed * _delta
-	_owner.pipeline.checkmove(_owner.pf)
+	_owner.pipeline.checkmove(_owner.pf,false)
 	if _owner.pf.dist == 0:
 		_owner.pf.direction = get_next_direction(_owner.pf)
 	move(_owner.pf)
@@ -18,14 +21,14 @@ func logic(_args:Dictionary = {}):
 		if _owner.pf.direction.x > 0:
 			_owner.spr.flip_h = true
 		else:
-			_owner.spr.flip_h = false	
+			_owner.spr.flip_h = false
 	if abs(_owner.pf.direction.y) > 0:
 		_owner.anim.play("Climb")
 		_owner.spr.flip_h = false
 		if _owner.pf.direction.y > 0:
 			_owner.spr.flip_v = true
 		else:
-			_owner.spr.flip_v = false	
+			_owner.spr.flip_v = false
 
 
 func move(_pf):
@@ -33,6 +36,8 @@ func move(_pf):
 	_owner.setposition(_pf.position + (_pf.dist * _pf.direction))
 	var _axis = _pf.direction.abs()
 	if _pf.direction != _pf.prevdirection and _pf.direction:
+		if _pf.preprevdirection.abs() != _pf.prevdirection.abs():
+			_pf.preprevdirection = _pf.prevdirection
 		_pf.prevdirection = _pf.direction
 	if _pf.lastmovement != _axis:
 		_pf.lastmovement = _axis
@@ -42,25 +47,31 @@ func move(_pf):
 			_pos.x = _pf.position.x
 			_owner.setposition(_pos)
 		if _axis == Vector2.DOWN:
-			match _pf.ti[6]:
-				2,5,6,2003,2008:
-					_pos.x += _owner.pipeline._rightVMove
-					_pos.y = _pf.position.y
-					_owner.setposition(_pos)
-				1002,1005,1006,3008:
-					_pos.x += _owner.pipeline._leftVMove
-					_pos.y = _pf.position.y
-					_owner.setposition(_pos)
+			_pos.x = _owner.pipemap.map_to_world(_pf.gridpos).x + 16
+			_owner.setposition(_pos)
+#			match _pf.ti[6]:
+#				2,5,6,2003,2008:
+#					_pos.x += _owner.pipeline._rightVMove
+#					_pos.y = _pf.position.y
+#					_owner.setposition(_pos)
+#				1002,1005,1006,3008:
+#					_pos.x += _owner.pipeline._leftVMove
+#					_pos.y = _pf.position.y
+#					_owner.setposition(_pos)
 	return
 
 func get_next_direction(_pf) -> Vector2:
 	if abs(_pf.direction.x):
 		#try up/down as the next directions
-		var _trydir = Vector2.UP
+		var _trydir:Vector2
+		if _pf.preprevdirection == Vector2.UP:
+			_trydir = Vector2.UP
+		else:
+			_trydir = Vector2.DOWN
 		if _pf.available_directions[_trydir]:
 			return _trydir
 		else:
-			_trydir = Vector2.DOWN
+			_trydir = _trydir * Vector2(-1,-1)
 			if _pf.available_directions[_trydir]:
 				return _trydir
 			else:
@@ -69,11 +80,15 @@ func get_next_direction(_pf) -> Vector2:
 	else:
 		#must be travelling up/down
 		#try left/roght as the next directions
-		var _trydir = Vector2.LEFT
+		var _trydir:Vector2
+		if _pf.preprevdirection == Vector2.LEFT:
+			_trydir = Vector2.LEFT
+		else:
+			_trydir = Vector2.RIGHT
 		if _pf.available_directions[_trydir]:
 			return _trydir
 		else:
-			_trydir = Vector2.RIGHT
+			_trydir = _trydir * Vector2(-1,-1)
 			if _pf.available_directions[_trydir]:
 				return _trydir
 			else:
