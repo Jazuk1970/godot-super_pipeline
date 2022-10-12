@@ -21,12 +21,15 @@ var pipemap:TileMap
 var pipeline:Object
 
 func _ready():
-	speed = 150
+	if globals.Game_State.statename == "Intermission":
+		$CollisionShape2D2.disabled = true
+	#speed = 150
 	pipeline = globals.level.get_node("pipeline")
 	pipemap = pipeline.map
 	fsm.add_states($States)
 	start_pos = Vector2(45,35) * globals.tile_size
 	fsm._on_state_change("Spawning")
+	self_destructs = true
 
 func _process(delta):
 	if fsm.state != null:
@@ -44,7 +47,7 @@ func setposition(_p):
 func _collided(_a):
 	if _a.is_in_group("Bullet"):
 		#check if the bullet is hitting the head of the lobster
-		if _a.direction.x + pf.direction.x != 0:
-			#score modifier needed
+		if _a.direction.x == pf.direction.x:
+			globals.hud._updateScore(globals.Current_Player,points)
 			fsm._on_state_change("Dying")
 		_a.queue_free()

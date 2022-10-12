@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/types/Plug/plug.gd" type="Script" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://scenes/enemies/types/Plug/states/Dropping.gd" type="Script" id=4]
 [ext_resource path="res://scenes/enemies/types/Plug/states/Blocking.gd" type="Script" id=5]
 [ext_resource path="res://scenes/enemies/gfx/plug.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 28.5725 )
 
 [node name="Plug" instance=ExtResource( 1 )]
 collision_layer = 64
@@ -29,4 +32,10 @@ position = Vector2( 16, 32 )
 texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2( 14.4707, 31.6912 )
+visible = false
+position = Vector2( 13.5788, 32.2858 )
+disabled = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="5"]
+position = Vector2( 14.8651, 32.1086 )
+shape = SubResource( 1 )

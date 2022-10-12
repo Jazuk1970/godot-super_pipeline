@@ -1,0 +1,36 @@
+{
+  "Level": {
+            "Enemies":{
+                        "Lobster":{
+                                 "1":{
+                                  "id": "1",
+                                  "speed":"400",
+                                  "points":"50",
+                                  "spawn_frequency":"1",
+                                  "initial_delay":"0"
+                                  }
+								                  }
+                      },
+            "Helpers":{
+                        "Standard":{
+                                    "1":{
+                                        "id":"1",
+                                        "speed":"400",
+                                        "follow_dist":"110",
+                                        "work_effeciency":"250",
+                                        "spawn_frequency":"0",
+                                        "initial_delay":"0"
+                                        }
+                              }
+                      },
+            "Player_Start_Position":"-218",
+            "Player_Start_Direction":"2",
+            "Target_Fill":"1000",
+            "Next_Level":"03",
+            "LevelName":"Intermission 01",
+            "Level_Colour":"00",
+            "Level_Type":"Intermission",
+            "PipeData":"-31800010274"
+          }
+
+}

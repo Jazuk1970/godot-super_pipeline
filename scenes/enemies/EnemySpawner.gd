@@ -14,6 +14,7 @@ var Enemies:Dictionary = {}
 var EnemiesForRemoval:Dictionary = {}
 var EnemiesForRespawn:Dictionary = {}
 var EnemiesToRemove:int setget remove_enemies
+var EnemyRespawn:bool = true
 
 func _ready():
 	var _Enemies = globals.Level_Data.Enemies
@@ -30,7 +31,7 @@ func _ready():
 func _process(delta):
 	if EnemiesForRemoval.size() > 0:
 		self.EnemiesToRemove = EnemiesForRemoval.size()
-	if EnemiesForRespawn.size() > 0:
+	if EnemiesForRespawn.size() > 0 and EnemyRespawn:
 		for _EnemyType in EnemiesForRespawn:
 			for _Enemy in EnemiesForRespawn[_EnemyType]:
 				EnemiesForRespawn[_EnemyType][_Enemy].elapsed += delta
@@ -72,6 +73,9 @@ func spawn(_type,_id) -> Object:
 				_e.name = _type + "_" + _id
 				_e.id = _id
 				_e.speed = _Enemy.speed.to_float()
+				if _Enemy.has("points"):
+					_e.points = _Enemy.points.to_int()
+				
 				match _type:
 					"Plug":
 						_e.source_gridpos = globals.getVect(_Enemy.start_position)

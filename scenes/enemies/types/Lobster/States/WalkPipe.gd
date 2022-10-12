@@ -9,7 +9,7 @@ func logic(_args:Dictionary = {}):
 	var _delta = _args["delta"]
 	_owner.pf.dist = _owner.speed * _delta
 	_owner.pipeline.checkmove(_owner.pf,false)
-	if _owner.pf.dist == 0:
+	if _owner.pf.dist == 0 and globals.Game_State.statename !="Intermission":
 		_owner.pf.direction = get_next_direction(_owner.pf)
 	move(_owner.pf)
 	if abs(_owner.pf.direction.x) > 0:

@@ -1,69 +1,106 @@
 {
   "Level": {
             "Enemies":{
-                        "Plugs":[
-                                  {
+                        "Plug":{
+                                "1":{
                                     "id": "1",
                                     "speed":"250",
-                                    "start_position":"1606",
-                                    "targets":["1614","1618"]
+                                    "points":"400",
+                                    "start_position":"1107",
+                                    "targets":["1114","1118","1125"]
                                   },
-                                  {
+                                "2":{
                                     "id": "2",
                                     "speed":"250",
-                                    "start_position":"1406",
-                                    "targets":["1412","1422"]
+                                    "points":"400",
+                                    "start_position":"1807",
+                                    "targets":["1818","1822","1825"]
                                   },
-                                  {
+                                "3":{
                                     "id": "3",
                                     "speed":"250",
-                                    "start_position":"2006",
-                                    "targets":["2016","2022"]
+                                    "points":"400",
+                                    "start_position":"2307",
+                                    "targets":["2318","2325"]
+                                  },
+                                "4":{
+                                    "id": "4",
+                                    "speed":"250",
+                                    "points":"400",
+                                    "start_position":"2907",
+                                    "targets":["2914","2922"]
+                                  },
+                                "5":{
+                                    "id": "5",
+                                    "speed":"250",
+                                    "points":"400",
+                                    "start_position":"3507",
+                                    "targets":["3514","3528"]
                                   }
-                                ],
-                        "Ants":[
-                                 {
+                                },
+                        "Ant":{
+                                "1":{
                                   "id": "1",
-                                  "speed":"250",
+                                  "speed":"350",
+                                  "points":"25",
                                   "spawn_frequency":"10",
-                                  "initial_delay":"5"
+                                  "initial_delay":"15"
                                   }
-                                ],
-                        "Fleas":[
-                                 {
+                                },
+                        "Flea":{
+                                 "1":{
                                   "id": "1",
-                                  "speed":"250",
-                                  "spawn_frequency":"10",
+                                  "speed":"400",
+                                  "points":"100",
+                                  "spawn_frequency":"12",
                                   "initial_delay":"5"
                                   },
-                                 {
+                                 "2":{
                                   "id": "2",
-                                  "speed":"250",
-                                  "spawn_frequency":"12",
-                                  "initial_delay":"11"
+                                  "speed":"350",
+                                  "points":"50",
+                                  "spawn_frequency":"15",
+                                  "initial_delay":"7"
                                   }
-                                ],
-                        "Lobsters":[
-                                 {
+                                },
+                        "Lobster":{
+                                 "1":{
                                   "id": "1",
-                                  "speed":"250",
-                                  "spawn_frequency":"10",
-                                  "initial_delay":"5"
+                                  "speed":"300",
+                                  "points":"50",
+                                  "spawn_frequency":"18",
+                                  "initial_delay":"20"
                                   }
-                                ]
+				                          },
+                        "Block":{
+                                 "1":{
+                                  "id": "1",
+                                  "speed":"100",
+                                  "points":"0",
+                                  "source_gridpos":"4215",
+                                  "target_gridpos":"4225"
+                                  }
+                                }
                       },
-            "Helpers":[
-                        {
-                          "id":"1",
-                          "speed":"100",
-                          "follow_dist":"100",
-                          "work_effeciency":"100"
-                        }
-                      ],
+            "Helpers":{
+                        "Standard":{
+                                    "1":{
+                                        "id":"1",
+                                        "speed":"375",
+                                        "follow_dist":"125",
+                                        "work_effeciency":"250",
+                                        "spawn_frequency":"5",
+                                        "initial_delay":"0"
+                                        }
+                              }
+                      },
             "Player_Start_Position":"0814",
             "Player_Start_Direction":"2",
             "Target_Fill":"1000",
-            "Next_Level":"02",
+            "Next_Level":"14A",
+            "Level_Colour":"00",
+            "LevelName":"Pipeline 14",
+            "Level_Type":"Pipeline",
             "PipeData":"051400010001020601010206010120011001110122010001010121011101100123010001020101012001100110011202110112051101220100010204010121011101100120010101020100012201110112011001120210011001230100010201010120011001110121010101020215010201150100012301100111012101010102030001230110011202110121010101020400012201110112021001230100010202010121011101100120010101020700012301100112031101220100010202150102030101020215010205"
           }
 

@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://fonts/Rubik-Bold.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 42
+extra_spacing_space = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 42
+extra_spacing_char = 1
+extra_spacing_space = 1
+font_data = ExtResource( 1 )
+
+[node name="TitleText" type="CanvasLayer"]
+
+[node name="COPYRIGHT" type="Label" parent="."]
+margin_left = 290.0
+margin_top = 943.126
+margin_right = 1096.11
+margin_bottom = 1048.13
+custom_fonts/font = SubResource( 1 )
+text = "(C)  MCMLXXXIII      TASKSET  LTD.
+ALL  RIGHTS  RESERVED"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PRESSPLAY" type="Label" parent="."]
+margin_left = 1149.0
+margin_top = 943.051
+margin_right = 1578.0
+margin_bottom = 1040.0
+custom_fonts/font = SubResource( 2 )
+text = "
+PRESS  FIRE  TO  PLAY"
+__meta__ = {
+"_edit_use_anchors_": false
+}

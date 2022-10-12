@@ -29,6 +29,7 @@ func _ready():
 	fsm.add_states($States)
 	start_pos = (Vector2(45,35) * globals.tile_size) + Vector2(14,0)
 	fsm._on_state_change("Climbing")
+	self_destructs = true
 
 func _process(delta):
 	if fsm.state != null:
@@ -45,6 +46,6 @@ func setposition(_p):
 
 func _collided(_a):
 	if _a.is_in_group("Bullet"):
-		#score modifier required
+		globals.hud._updateScore(globals.Current_Player,points)
 		_a.queue_free()
 		fsm._on_state_change("Dying")

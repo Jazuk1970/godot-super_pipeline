@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/types/Ant/Ant.gd" type="Script" id=2]
@@ -88,6 +88,9 @@ tracks/0/keys = {
 "values": [ 3 ]
 }
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 10, 29.2814 )
+
 [node name="Ant" instance=ExtResource( 1 )]
 collision_layer = 32
 collision_mask = 16
@@ -118,7 +121,9 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1152, 512 )
 
 [node name="CollisionShape2D" parent="." index="2"]
+visible = false
 position = Vector2( 32.0431, 24.721 )
+disabled = true
 
 [node name="AnimationPlayer" parent="." index="3"]
 anims/Climb = SubResource( 1 )
@@ -126,4 +131,8 @@ anims/ClimbStop = SubResource( 2 )
 anims/Dying = SubResource( 3 )
 anims/Walk = SubResource( 4 )
 anims/WalkStop = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="5"]
+position = Vector2( 31.9901, 25.536 )
+shape = SubResource( 6 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

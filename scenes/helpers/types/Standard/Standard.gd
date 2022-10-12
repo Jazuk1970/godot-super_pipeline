@@ -24,6 +24,8 @@ var pf:PipeFollower = PipeFollower.new()
 var pipemap:TileMap
 # warning-ignore:unused_class_variable
 var pipeline:Object
+var winning:bool = false
+
 
 func _ready():
 	set_process(true)
@@ -41,7 +43,7 @@ func _ready():
 	pipemap = pipeline.map
 	fsm.add_states($States)
 	pf.facingdirection = Vector2.RIGHT
-	pf.gridpos = Vector2(-2,14)
+	pf.gridpos = Vector2(-2,globals.getVect(globals.Level_Data.Player_Start_Position).y)
 	_setposition(pipemap.map_to_world(pf.gridpos) + Vector2(1,1))
 	#start_pos = Vector2(-2,14) * globals.tile_size
 	fsm._on_state_change("Spawning")
@@ -66,17 +68,28 @@ func _setposition(_p):
 	pf.gridpos = _newgridpos
 
 func _collided(_a):
+	#Check if we have collided with an enemy
 	if _a.is_in_group("Enemy"):
-		if _a.is_in_group("Plug"): 
+		#Check if the enemy is a plug
+		if _a.is_in_group("Plug"):
+			#Check if the plug is currently  blocking flow
 			if _a.fsm.statename == "Blocking":
+				#Set the helper state to repairing
 				fsm._on_state_change("Repairing")
+				#Set the target plug so we know what to remove when the repair is done
 				target = _a
+		#If the enemy is not a plug, is the enemy not currently dying
 		elif _a.fsm.statename != "Dying":
+			#Set the helper state to dying as the enemy has killed him
 			fsm._on_state_change("Dying")
+			#Set the enemy state to dying also to remove the enemy
+			_a.fsm._on_state_change("Dying")
 	else:
+		#Check if the collision is with the player, and the helper is ready to follow
 		if _a.is_in_group("Player") and fsm.statename == "Idle" or fsm.statename == "Spawning":
 			#set the target to the player
 			target = _a
+			#Set the helper state to following
 			if fsm.state.name != "Following":
 				fsm._on_state_change("Following")
 
@@ -84,7 +97,6 @@ func _on_area_entered(area):
 	if not collisions.has(area):
 		collisions.append(area)
 		_collided(area)
-
 
 func _on_area_exited(area):
 	if collisions.has(area):
@@ -100,5 +112,18 @@ func _exit_tree():
 		Spawner.add_respawn(type,id,str(spawn_frequency))
 
 func _draw():
+	if not globals.DEBUG:
+		return
 	if target_pos != Vector2.ZERO and target:
 		draw_line(Vector2.ZERO,target_pos - position,Color(1.0,0,0))
+
+func _on_Timer_timeout():
+	if fsm.state != null:
+		#if the current state has a timeout method call it
+		if fsm.state.has_method("_on_Timer_timeout"):
+			fsm.state._on_Timer_timeout()
+
+func _winning():
+	winning = true
+	if fsm.state.name == "Following" or fsm.state.name == "Idle" or fsm.state.name == "Repairing":
+		fsm._on_state_change("Winning")

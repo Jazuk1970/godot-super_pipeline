@@ -34,6 +34,10 @@ func _exit_tree():
 			if not Spawner.EnemiesForRemoval.has(type):
 				Spawner.EnemiesForRemoval[type] = []
 				Spawner.EnemiesForRemoval[type].append(name)
-	if spawn_frequency != 0:
+	if spawn_frequency != 0 and globals.Game_State.statename == "Play":
 		Spawner.add_respawn(type,id,str(spawn_frequency))
 
+func _self_destruct():
+	if self_destructs:
+		self.call_deferred("free")
+	

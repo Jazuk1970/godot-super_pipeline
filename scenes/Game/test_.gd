@@ -8,19 +8,10 @@ export (PackedScene) var oPipeline
 export (PackedScene) var oEnemySpawner
 # warning-ignore:unused_class_variable
 export (PackedScene) var oHelperSpawner
+# warning-ignore:unused_class_variable
+export (PackedScene) var oBarrel
 
-#object refenences
 
-# warning-ignore:unused_class_variable
-onready var PlayerPos = $Container/VBoxContainer/HBoxContainer/Label2
-# warning-ignore:unused_class_variable
-onready var PlayerGridPos = $Container/VBoxContainer/HBoxContainer2/Label2
-# warning-ignore:unused_class_variable
-onready var TileInfo = $Container/VBoxContainer/HBoxContainer3/Label2
-# warning-ignore:unused_class_variable
-onready var NextTileInfo = $Container/VBoxContainer/HBoxContainer4/Label
-# warning-ignore:unused_class_variable
-onready var Clickloc = $Container/VBoxContainer/HBoxContainer5/Label
 var Level_data:Dictionary = {}
 var Level:String
 var fsm:StateMachine = StateMachine.new()
@@ -37,21 +28,27 @@ func _ready():
 	globals.enemies = $enemies
 	globals.helpers = $helpers
 	globals.players = $players
+	globals.hud = $hud
+	globals.Game_State = fsm
+	globals.bgmusic = $AudioStreamPlayer
 
 	fsm._owner = self
 	fsm.add_states($States)
 	fsm._on_state_change("Init")
 	set_process(true)
-	Level = "level_16"
+	Level = "00"
 
 func _process(delta):
 	if fsm.state != null:
 		var _args = {"delta":delta}
 		fsm.state.logic(_args)
-		if Input.is_mouse_button_pressed(BUTTON_LEFT):
-			var _mp = get_global_mouse_position()
-			var _mpgp = pipeline.map.world_to_map(_mp)
-			Clickloc.text = str(_mpgp)
+#		if Input.is_mouse_button_pressed(BUTTON_LEFT):
+#			var _mp = get_global_mouse_position()
+#			var _mpgp = pipeline.map.world_to_map(_mp)
+#			Clickloc.text = str(_mpgp)
+		if Input.is_key_pressed(KEY_ESCAPE):
+			get_tree().quit()
+
 	update()
 
 func _save_level_data():
@@ -72,13 +69,3 @@ func _save_level_data():
 	Level_data["helpers"][0] ={"type":"mole","start_pos":"0101","start_dir":"2","speed":"3","start_delay":"0","freq":"0"}
 
 	var _result = file_handling.SaveFile("res://level_data/level_01.json", Level_data)
-
-
-#debug only, showing player position on grid
-func _draw():
-	if player:
-		var _gp = player.global_position
-		var _ts = globals.tile_size
-		var _gridpos = pipeline.map.world_to_map(_gp)
-		var _snapped = pipeline.map.map_to_world(_gridpos,true)
-		draw_rect(Rect2(_snapped,_ts),Color8(220,0,0,150),false)

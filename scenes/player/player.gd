@@ -15,6 +15,9 @@ var pf:PipeFollower = PipeFollower.new()
 var canshoot:bool = true
 var cooldowntime:float = 0.3
 var collisions:Array = []
+var moveenabled:bool = true
+var winning:bool = false
+var remote_input_direction:Vector2 = Vector2.ZERO
 
 func _ready():
 	set_process(true)
@@ -27,59 +30,64 @@ func _ready():
 	_setposition(pipemap.map_to_world(pf.gridpos) + Vector2(1,1))
 
 func _process(delta):
-	pf.inputdirection = get_input_direction()
-	var _ld:Vector2
-	if pf.inputdirection and canshoot:
-		pf.dist = speed * delta
-		pf.direction = pf.inputdirection
-		pf.moving = false
-		if pf.direction.abs() == Vector2.ONE:
-			#if both horizontal and vertical movements are requested first try the direction we were last moving in
-			pf.direction = pf.inputdirection * pf.lastmovement
-#			pf =  pipeline.checkmove(pf)
-			pipeline.checkmove(pf)
-#			pf.dist = pf.available_directions[pf.direction]
-			#if we cannot move in the same direction as last time or we are at a junction, try the other direction
-			if pf.dist == 0:# or (pf.ti[6] in [2,1002] and not pf.supressdirchange):
-				pf.supressdirchange = true
-				if pf.lastmovement == Vector2.RIGHT:
-					pf.direction = pf.inputdirection * Vector2.DOWN
-#					pf.dist = speed * delta
-#					pf =  pipeline.checkmove(pf)
-					pf.dist = pf.available_directions[pf.direction]
-				else:
-					pf.direction = pf.inputdirection * Vector2.RIGHT
-#					pf.dist = speed * delta
-#					pf =  pipeline.checkmove(pf)
-					pf.dist = pf.available_directions[pf.direction]
-
+	if moveenabled:
+		if globals.Level_Data.Level_Type == "Pipeline":
+			pf.inputdirection = get_input_direction()
 		else:
-#			pf =  pipeline.checkmove(pf)
-			pipeline.checkmove(pf)
-#			pf.dist = pf.available_directions[pf.direction]
-#			pf =  pipeline.checkmove(pf)
+			pf.inputdirection = remote_input_direction
+		var _ld:Vector2
+		if pf.inputdirection and canshoot:
+			pf.dist = speed * delta
+			pf.direction = pf.inputdirection
+			pf.moving = false
+			if pf.direction.abs() == Vector2.ONE:
+				#if both horizontal and vertical movements are requested first try the direction we were last moving in
+				pf.direction = pf.inputdirection * pf.lastmovement
+	#			pf =  pipeline.checkmove(pf)
+				pipeline.checkmove(pf)
+	#			pf.dist = pf.available_directions[pf.direction]
+				#if we cannot move in the same direction as last time or we are at a junction, try the other direction
+				if pf.dist == 0:# or (pf.ti[6] in [2,1002] and not pf.supressdirchange):
+					pf.supressdirchange = true
+					if pf.lastmovement == Vector2.RIGHT:
+						pf.direction = pf.inputdirection * Vector2.DOWN
+	#					pf.dist = speed * delta
+	#					pf =  pipeline.checkmove(pf)
+						pf.dist = pf.available_directions[pf.direction]
+					else:
+						pf.direction = pf.inputdirection * Vector2.RIGHT
+	#					pf.dist = speed * delta
+	#					pf =  pipeline.checkmove(pf)
+						pf.dist = pf.available_directions[pf.direction]
 
-		if pf.direction.x > 0 or abs(pf.direction.y) > 0:
-			spr.flip_h = true
-			bulletspawn.position.x = abs(bulletspawn.position.x)
+			else:
+	#			pf =  pipeline.checkmove(pf)
+				pipeline.checkmove(pf)
+	#			pf.dist = pf.available_directions[pf.direction]
+	#			pf =  pipeline.checkmove(pf)
+
+			if pf.direction.x > 0 or abs(pf.direction.y) > 0:
+				spr.flip_h = true
+				bulletspawn.position.x = abs(bulletspawn.position.x)
+			else:
+				spr.flip_h = false
+				bulletspawn.position.x = abs(bulletspawn.position.x) * -1
+			if pf.direction.y != 0:
+				pf.position.x = pipemap.map_to_world(pf.gridpos).x + 16
+
+			if pf.dist:
+				pf = move(pf)
 		else:
-			spr.flip_h = false
-			bulletspawn.position.x = abs(bulletspawn.position.x) * -1
-		if pf.direction.y != 0:
-			pf.position.x = pipemap.map_to_world(pf.gridpos).x + 16
+			pf.moving = false
+		if globals.Level_Data.Level_Type == "Pipeline":
+			if Input.is_action_pressed("fire") and canshoot and not pf.moving and pf.facingdirection.abs() == Vector2.RIGHT:
+				_shoot(pf)
 
-		if pf.dist:
-			pf = move(pf)
-	else:
-		pf.moving = false
-	if Input.is_action_pressed("fire") and canshoot and not pf.moving and pf.facingdirection.abs() == Vector2.RIGHT:
-		_shoot(pf)
-
-#	pf = _setanimation(pf)
-	_setanimation(pf)
-	var _atm = true if pf.dist else false
-	globals.mainscene.PlayerPos.text = str(position, " , pos in tile: ",utility.vect2Int(pf.ti[5]), " , Able to move: ",_atm, " , Moving: ",pf.moving, " , Facing Direction: ",pf.facingdirection)
-	globals.mainscene.PlayerGridPos.text = str(pf.gridpos, " , Rel Dist: ",position - pipemap.map_to_world(pf.gridpos))
+	#	pf = _setanimation(pf)
+		_setanimation(pf)
+		var _atm = true if pf.dist else false
+	if winning:
+		anim.play("Walk")
 
 func get_input_direction():
 	var _id = Vector2()
@@ -121,7 +129,7 @@ func move(_pf) -> PipeFollower:
 func _shoot(_pf):
 	var _bullet = oBullet.instance()
 	_bullet.position = bulletspawn.global_position
-	_bullet.direction = pf.facingdirection
+	_bullet.direction = Vector2(1,0) if spr.flip_h else Vector2(-1,0)#pf.facingdirection
 	var _level = globals.mainscene.get_node("level")
 	_level.add_child(_bullet)
 	anim.play("Shoot")
@@ -178,3 +186,6 @@ func _on_player_area_exited(area):
 	if collisions.has(area):
 		collisions.erase(area)
 
+func _winning():
+	winning = true
+	moveenabled = false

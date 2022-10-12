@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Game/test_.gd" type="Script" id=1]
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://scenes/Game/States/DrawLevel.gd" type="Script" id=8]
 [ext_resource path="res://scenes/Game/States/Play.gd" type="Script" id=9]
 [ext_resource path="res://scenes/Game/States/Quit.gd" type="Script" id=10]
+[ext_resource path="res://scenes/Game/States/LevelComplete.gd" type="Script" id=11]
+[ext_resource path="res://scenes/barrel/barrel.tscn" type="PackedScene" id=12]
 
 [node name="Test_Scene" type="Node2D"]
 script = ExtResource( 1 )
@@ -35,6 +37,9 @@ script = ExtResource( 9 )
 [node name="Quit" type="Node" parent="States"]
 script = ExtResource( 10 )
 
+[node name="LevelComplete" type="Node" parent="States"]
+script = ExtResource( 11 )
+
 [node name="level" type="Node" parent="."]
 
 [node name="enemies" type="Node" parent="."]
@@ -47,6 +52,9 @@ script = ExtResource( 10 )
 margin_right = 40.0
 margin_bottom = 40.0
 rect_pivot_offset = Vector2( -575.263, -228.421 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container"]
 margin_right = 40.0
@@ -57,13 +65,13 @@ margin_right = 143.0
 margin_bottom = 14.0
 
 [node name="Label" type="Label" parent="Container/VBoxContainer/HBoxContainer"]
-margin_right = 56.0
+margin_right = 23.0
 margin_bottom = 14.0
-text = "Position:"
+text = "Fill:"
 
 [node name="Label2" type="Label" parent="Container/VBoxContainer/HBoxContainer"]
-margin_left = 60.0
-margin_right = 80.0
+margin_left = 27.0
+margin_right = 47.0
 margin_bottom = 14.0
 text = "0,0"
 
@@ -73,15 +81,15 @@ margin_right = 143.0
 margin_bottom = 32.0
 
 [node name="Label" type="Label" parent="Container/VBoxContainer/HBoxContainer2"]
-margin_right = 87.0
+margin_right = 78.0
 margin_bottom = 14.0
-text = "Grid Position:"
+text = "Game State:"
 
 [node name="Label2" type="Label" parent="Container/VBoxContainer/HBoxContainer2"]
-margin_left = 91.0
-margin_right = 111.0
+margin_left = 82.0
+margin_right = 114.0
 margin_bottom = 14.0
-text = "0,0"
+text = "State"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Container/VBoxContainer"]
 margin_top = 36.0
@@ -130,3 +138,6 @@ margin_left = 138.0
 margin_right = 143.0
 margin_bottom = 14.0
 text = "-"
+
+[node name="Barrel" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1060.17, 1005.72 )

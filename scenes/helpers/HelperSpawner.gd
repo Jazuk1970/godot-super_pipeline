@@ -11,18 +11,19 @@ func _ready():
 	var _helpers = globals.Level_Data.Helpers
 	for _helperType in _helpers:
 		for _helper in _helpers[_helperType]:
-			if _helpers[_helperType][_helper].has("initial_delay"):
-				if _helpers[_helperType][_helper].initial_delay == "0":
-					globals.helpers.add_child(spawn(_helperType,_helper))
+			if _helpers[_helperType][_helper].spawn_frequency != "-1":
+				if _helpers[_helperType][_helper].has("initial_delay"):
+					if _helpers[_helperType][_helper].initial_delay == "0":
+						globals.helpers.add_child(spawn(_helperType,_helper))
+					else:
+						add_respawn(_helperType,_helper,_helpers[_helperType][_helper].initial_delay)
 				else:
-					add_respawn(_helperType,_helper,_helpers[_helperType][_helper].initial_delay)
-			else:
-				globals.helpers.add_child(spawn(_helperType,_helper))
+					globals.helpers.add_child(spawn(_helperType,_helper))
 
 func _process(delta):
 	if helpersForRemoval.size() > 0:
 		self.helpersToRemove = helpersForRemoval.size()
-	if helpersForRespawn.size() > 0:
+	if helpersForRespawn.size() > 0 and globals.Game_State.statename == "Play":
 		for _helperType in helpersForRespawn:
 			for _helper in helpersForRespawn[_helperType]:
 				helpersForRespawn[_helperType][_helper].elapsed += delta
@@ -70,6 +71,8 @@ func spawn(_type,_id) -> Object:
 					"Standard":
 						_e.spawn_frequency = _helper.spawn_frequency.to_float()
 						_e.initial_delay = _helper.initial_delay.to_float()
+						if globals.Game_State.statename == "Intermission":
+							_e.target = globals.players.get_node("Player")
 				return _e
 	return null
 

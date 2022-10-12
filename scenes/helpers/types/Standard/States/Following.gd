@@ -6,6 +6,9 @@ var last_player_positions:Array = []
 var current_target_position:Vector2 = Vector2.ZERO
 var current_target_direction:Vector2 = Vector2.ZERO
 var moving_to_position:bool = false
+var flashing:bool = false
+var flashrate:float = 0.5
+var altcol:Color = Color8(255,255,150)
 
 func enter(_args:Dictionary = {}):
 	current_target_position = _owner.target.position
@@ -15,9 +18,14 @@ func enter(_args:Dictionary = {}):
 	moving_to_position = false
 	last_player_positions.clear()
 	last_player_positions.append([_owner.target.position,clamp_direction(_owner.position.direction_to(current_target_position))])
+	flashing = false
+	_owner.spr.modulate = Color8(255,255,255)
+	_owner.timer.one_shot = true
+	_owner.timer.start(flashrate)
 
 func exit(_args:Dictionary = {}):
-	pass
+	_owner.spr.modulate = Color8(255,255,255)
+
 
 func logic(_args:Dictionary = {}):
 	var _delta = _args["delta"]
@@ -162,7 +170,7 @@ func _player_direction_changed(args:Array = []):
 				_last_log.append(args[0]) #GridPosition
 				_last_log.append(args[1]) #GridPosition
 				last_player_positions.append(_last_log)
-			
+
 func _within_range(sv:Vector2, tv:Vector2,td:Vector2, xr:int = 2, yr:int = 2) -> bool:
 	if td == Vector2.LEFT:
 		if sv.x <= tv.x  and sv.y >= tv.y -yr and sv.y <= tv.y +yr:
@@ -196,4 +204,12 @@ func dir_to(cpos:Vector2,tpos:Vector2) -> Vector2:
 
 func _grid(pos:Vector2) ->Vector2:
 	return _owner.pipemap.world_to_map(pos)
-	
+
+func _on_Timer_timeout():
+	if flashing:
+		flashing = false
+		_owner.spr.modulate = Color8(255,255,255)
+	else:
+		flashing = true
+		_owner.spr.modulate = altcol
+	_owner.timer.start(flashrate)

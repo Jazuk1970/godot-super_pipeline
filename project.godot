@@ -46,7 +46,9 @@ _global_script_class_icons={
 
 config/name="Godot-super Pipeline"
 config/description="A version of super Pipeline by TaskSet on the C64"
-run/main_scene="res://scenes/Game/test_.tscn"
+run/main_scene="res://scenes/Game/Test_Scene.tscn"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -101,6 +103,7 @@ fire={
 2d_physics/layer_5="Bullet"
 2d_physics/layer_6="Enemy"
 2d_physics/layer_7="Plug"
+2d_physics/layer_8="BasicMob"
 
 [physics]
 
@@ -108,6 +111,7 @@ common/enable_object_picking=false
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 quality/2d/use_nvidia_rect_flicker_workaround=true
 quality/intended_usage/framebuffer_allocation=0

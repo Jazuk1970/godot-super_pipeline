@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/04_Lobster.ogg-2bdf7c11b9b1ab6be8f84e85219ac7b5.oggstr"
+
+[deps]
+
+source_file="res://music/04_Lobster.ogg"
+dest_files=[ "res://.import/04_Lobster.ogg-2bdf7c11b9b1ab6be8f84e85219ac7b5.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

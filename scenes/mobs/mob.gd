@@ -15,6 +15,7 @@ onready var timer = $Timer
 # warning-ignore:unused_class_variable
 export var type:String = 'Mob'
 export var speed = 250
+
 var fsm:StateMachine = StateMachine.new()
 var collisions:Array = []
 var Spawner:Object
@@ -22,7 +23,11 @@ var Spawner:Object
 var spawn_frequency:float
 # warning-ignore:unused_class_variable
 var initial_delay:float
+# warning-ignore:unused_class_variable
+var points: int = 0
 var id:String
+# warning-ignore:unused_class_variable
+var self_destructs: bool = false
 
 func _ready():
 	set_process(true)

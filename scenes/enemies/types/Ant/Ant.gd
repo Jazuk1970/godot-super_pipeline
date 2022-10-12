@@ -20,6 +20,7 @@ func _ready():
 	position = start_pos
 	speed = 150
 	timer.start(initial_delay)
+	self_destructs = true
 #	fsm._on_state_change("Climbing")
 
 func _process(delta):
@@ -31,6 +32,7 @@ func _process(delta):
 func _collided(_a):
 	if _a.is_in_group("Bullet"):
 		#score modifier required
+		globals.hud._updateScore(globals.Current_Player,points)
 		_a.queue_free()
 		fsm._on_state_change("Dying")
 

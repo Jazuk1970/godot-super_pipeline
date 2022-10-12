@@ -18,4 +18,6 @@ func logic(_args:Dictionary = {}):
 				var _p = pipeline.pipeline[_i]
 				_p.blockreq = false
 			_owner.trigger = false
+			#Update the score
+			globals.hud._updateScore(globals.Current_Player,_owner.points)
 			_owner.queue_free()
