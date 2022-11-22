@@ -46,6 +46,7 @@ func setposition(_p):
 
 func _collided(_a):
 	if _a.is_in_group("Bullet"):
-		globals.hud._updateScore(globals.Current_Player,points)
+		globals.hud.updateScore(globals.Current_Player,points)
+		_a.boom(position + col.position)
 		_a.queue_free()
 		fsm._on_state_change("Dying")

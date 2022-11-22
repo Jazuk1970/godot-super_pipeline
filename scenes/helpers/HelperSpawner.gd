@@ -71,8 +71,6 @@ func spawn(_type,_id) -> Object:
 					"Standard":
 						_e.spawn_frequency = _helper.spawn_frequency.to_float()
 						_e.initial_delay = _helper.initial_delay.to_float()
-						if globals.Game_State.statename == "Intermission":
-							_e.target = globals.players.get_node("Player")
 				return _e
 	return null
 

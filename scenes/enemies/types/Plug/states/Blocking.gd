@@ -19,5 +19,5 @@ func logic(_args:Dictionary = {}):
 				_p.blockreq = false
 			_owner.trigger = false
 			#Update the score
-			globals.hud._updateScore(globals.Current_Player,_owner.points)
+			globals.hud.updateScore(globals.Current_Player,_owner.points)
 			_owner.queue_free()

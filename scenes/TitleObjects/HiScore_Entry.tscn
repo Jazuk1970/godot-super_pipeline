@@ -1,0 +1,399 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fonts/Rubik-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/pipeline_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/TitleObjects/HiScore_Entry.gd" type="Script" id=3]
+[ext_resource path="res://scenes/mobs/gfx/characters_new.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+extra_spacing_top = -7
+extra_spacing_bottom = -7
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+extra_spacing_top = -7
+extra_spacing_bottom = -7
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://fonts/Rubik-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 28
+extra_spacing_top = -2
+extra_spacing_bottom = -2
+font_data = SubResource( 3 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "HAMMER"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 34, 33 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "IDLE"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 31 ]
+}
+
+[node name="HiScore_Table" type="Control"]
+margin_left = 560.0
+margin_top = 240.0
+margin_right = 1360.0
+margin_bottom = 840.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -300.0
+margin_right = 400.0
+margin_bottom = 300.0
+color = Color( 0.298039, 0.196078, 0.0627451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background2" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -395.0
+margin_top = -295.0
+margin_right = 395.0
+margin_bottom = 295.0
+color = Color( 0.462745, 0.298039, 0.0705882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaiHiScoreContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.707
+margin_right = 0.707031
+margin_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginAboveTitle" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_right = 800.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Title" type="HBoxContainer" parent="MaiHiScoreContainer"]
+margin_top = 14.0
+margin_right = 800.0
+margin_bottom = 38.0
+alignment = 1
+
+[node name="Title_Label" type="Label" parent="MaiHiScoreContainer/Title"]
+margin_left = 184.0
+margin_right = 615.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.752941, 0.0196078, 1 )
+text = "HIGH  SCORE  NAME  ENTRY"
+align = 1
+
+[node name="MarginBelowTitle" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_top = 42.0
+margin_right = 800.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="HiScoreContainer" type="HBoxContainer" parent="MaiHiScoreContainer"]
+margin_top = 61.0
+margin_right = 800.0
+margin_bottom = 411.0
+rect_min_size = Vector2( 0, 350 )
+
+[node name="LHS_Spacer" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_right = 50.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 54.0
+margin_right = 692.0
+margin_bottom = 350.0
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer"]
+margin_right = 638.0
+margin_bottom = 24.0
+
+[node name="Congratulations" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer1"]
+margin_right = 480.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 480, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_constants/line_spacing = 8
+text = "CONGRATULATIONS  PLAYER  "
+autowrap = true
+
+[node name="Player" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer1"]
+margin_left = 484.0
+margin_right = 534.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0745098, 0.141176, 0.886275, 1 )
+custom_constants/line_spacing = 8
+text = "x"
+autowrap = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 638.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer"]
+margin_top = 52.0
+margin_right = 638.0
+margin_bottom = 82.0
+
+[node name="YouHaveRanked" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 325.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 325, 30 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_constants/line_spacing = 8
+text = "YOU  HAVE  RANKED "
+autowrap = true
+
+[node name="Rank" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 329.0
+margin_right = 429.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 100, 30 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0745098, 0.141176, 0.886275, 1 )
+custom_constants/line_spacing = 8
+text = "xx"
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer"]
+margin_top = 86.0
+margin_right = 638.0
+margin_bottom = 116.0
+
+[node name="WithAHighScore" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer"]
+margin_right = 400.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 400, 30 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_constants/line_spacing = 8
+text = "WITH  A  HIGH SCORE  OF"
+autowrap = true
+
+[node name="Score" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer"]
+margin_left = 404.0
+margin_right = 554.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 150, 30 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0745098, 0.141176, 0.886275, 1 )
+custom_constants/line_spacing = 8
+text = "yyyyyy"
+autowrap = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 638.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer"]
+margin_top = 149.0
+margin_right = 638.0
+margin_bottom = 173.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YouHave" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 180.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 180, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_constants/line_spacing = 8
+text = "YOU  HAVE"
+autowrap = true
+
+[node name="Seconds" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 184.0
+margin_right = 234.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.309804, 0.0117647, 0.0117647, 1 )
+custom_constants/line_spacing = 8
+text = "zz"
+align = 1
+autowrap = true
+
+[node name="ToEnterYourName" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 238.0
+margin_right = 638.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 400, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_constants/line_spacing = 8
+text = "  TO  ENTER  YOUR  NAME"
+autowrap = true
+
+[node name="RHS_Spacer" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 696.0
+margin_right = 746.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="Letters" type="HBoxContainer" parent="MaiHiScoreContainer"]
+margin_top = 415.0
+margin_right = 800.0
+margin_bottom = 455.0
+rect_min_size = Vector2( 0, 40 )
+alignment = 1
+
+[node name="Left" type="Label" parent="MaiHiScoreContainer/Letters"]
+margin_left = 21.0
+margin_top = 8.0
+margin_right = 371.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 350, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_constants/line_spacing = 8
+text = "ACBDEFGHIJ"
+align = 2
+valign = 1
+autowrap = true
+
+[node name="Selected" type="Label" parent="MaiHiScoreContainer/Letters"]
+margin_left = 375.0
+margin_top = 8.0
+margin_right = 425.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 50, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0745098, 0.141176, 0.886275, 1 )
+custom_constants/line_spacing = 8
+text = "A"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Right" type="Label" parent="MaiHiScoreContainer/Letters"]
+margin_left = 429.0
+margin_top = 8.0
+margin_right = 779.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 350, 0 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_constants/line_spacing = 8
+text = "ABCDEFHIJ"
+valign = 1
+autowrap = true
+
+[node name="Name" type="Label" parent="MaiHiScoreContainer"]
+margin_top = 459.0
+margin_right = 800.0
+margin_bottom = 502.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.0509804, 0.631373, 0.631373, 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="PressToStart" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_top = 506.0
+margin_right = 800.0
+margin_bottom = 579.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 10
+custom_constants/margin_left = 25
+
+[node name="lblPressToStart" type="Label" parent="MaiHiScoreContainer/PressToStart"]
+margin_left = 25.0
+margin_top = 10.0
+margin_right = 775.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 0, 46 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 4 )
+text = "LEFT / RIGHT changes letters, FIRE to select
+Select < to delete or * to accept letters"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="BottomMargin" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_top = 583.0
+margin_right = 800.0
+margin_bottom = 598.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="HAMMER_TIME" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/HAMMER = SubResource( 5 )
+anims/IDLE = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 436.439, 355.573 )
+texture = ExtResource( 4 )
+vframes = 4
+hframes = 9
+frame = 34
+region_enabled = true
+region_rect = Rect2( 0, 0, 1152, 512 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="HAMMER_TIME" to="." method="_on_HAMMER_TIME_timeout"]

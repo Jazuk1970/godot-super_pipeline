@@ -55,6 +55,7 @@ var fill_rate:float = 0.03
 var test:bool = false
 var _draw_done:bool = false
 var Level_Type:String
+var master_flow_enabled = true
 
 
 func _ready():
@@ -696,7 +697,6 @@ func checkmove(_pf:PipeFollower,_intilemove:bool = true):# -> PipeFollower:
 			_pf.available_directions[Vector2.DOWN] = 0.0
 		else:
 			_pf.available_directions[Vector2.DOWN] = 1.0
-
 	else:
 		_pf.available_directions[Vector2.LEFT] = 0.0
 		_pf.available_directions[Vector2.RIGHT] = 0.0
@@ -763,7 +763,7 @@ func _create_navmap():
 	var _ep:Vector2
 	var _data:Array = []
 	var _ti:int
-	var _dir:int
+	var _dr:int
 	var _fr:int
 	var _rs:int
 	var _fp:Vector2
@@ -777,13 +777,13 @@ func _create_navmap():
 		navmap.set_cellv(_sp,_ti)
 		#check the direction of travel between start point and end point
 		if _sp.x == _ep.x:
-			_dir = TILE_VERTICAL
+			_dr = TILE_VERTICAL
 			_fr = _ep.y - _sp.y
 		elif _sp.y == _ep.y:
-			_dir = TILE_HORIZONTAL
+			_dr = TILE_HORIZONTAL
 			_fr = _ep.x - _sp.x
 		else:
-			_dir = TILE_HORIZONTAL
+			_dr = TILE_HORIZONTAL
 			_fr = _ep.x - _sp.x
 		if _fr < 0:
 			_rs = -1
@@ -791,11 +791,11 @@ func _create_navmap():
 			_rs = 1
 		for _fill in range(_rs,_fr,_rs):
 
-			if _dir == TILE_VERTICAL:
+			if _dr == TILE_VERTICAL:
 				_fp = _sp + Vector2(0,_fill)
 			else:
 				_fp = _sp + Vector2(_fill,0)
-			navmap.set_cellv(_fp,_dir)
+			navmap.set_cellv(_fp,_dr)
 	_data = _path.back()
 	navmap.set_cellv(_data[0],_data[1])
 
@@ -822,12 +822,19 @@ func _create_flowlinks():
 
 
 func _on_FlowFilling_timeout():
-	if currentfill < targetfill:
-		if filling:
-			currentfill += 1
-			flowtmr.start(fill_rate)
-			globals.barrel.fill_level(currentfill)
+	if master_flow_enabled:
+		if currentfill < targetfill:
+			if filling:
+				currentfill += 1
+				flowtmr.start(fill_rate)
+				globals.barrel.fill_level(currentfill)
 
-	else:
-		emit_signal("fill_complete")
-		_waterfall.blockreq = true
+		else:
+			emit_signal("fill_complete")
+			_waterfall.blockreq = true
+
+func master_flow_enable(state):
+	master_flow_enabled = state
+
+func showbackground(_state):
+	$Background.visible = _state

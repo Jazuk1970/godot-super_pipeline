@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/pipeline/pipeline.gd" type="Script" id=1]
 [ext_resource path="res://scenes/pipeline/pipe_filling/pipe_filling.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/pipeline/gfx/pipe_tileset.tres" type="TileSet" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://scenes/Game/gfx/background.png" type="Texture" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "00"
@@ -238,6 +239,14 @@ script = ExtResource( 1 )
 _colours = [ Color( 0, 0, 1, 1 ), Color( 0.0392157, 0.945098, 0.160784, 1 ), Color( 0.713726, 0.0862745, 0.803922, 1 ), Color( 0.105882, 0.819608, 0.854902, 1 ), Color( 0.941176, 0.886275, 0.0588235, 1 ), Color( 0.94902, 0.219608, 0.0745098, 1 ), Color( 0.666667, 0.0196078, 0.0784314, 1 ), Color( 0.164706, 0.603922, 0.596078, 1 ) ]
 oPipe = ExtResource( 2 )
 
+[node name="Background" type="Sprite" parent="."]
+visible = false
+position = Vector2( 959.539, 649.72 )
+scale = Vector2( 1.74364, 1.714 )
+z_index = -20
+z_as_relative = false
+texture = ExtResource( 5 )
+
 [node name="pipemap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 32, 32 )
@@ -248,6 +257,7 @@ tile_data = PoolIntArray( 96, 12, 0 )
 one_shot = true
 
 [node name="PipeFilling" type="Node2D" parent="."]
+z_index = -1
 
 [node name="navmap" type="TileMap" parent="."]
 visible = false

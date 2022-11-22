@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/enemies/gfx/plug.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 28.5725 )
+extents = Vector2( 4.38324, 13.8697 )
 
 [node name="Plug" instance=ExtResource( 1 )]
 collision_layer = 64
@@ -37,5 +37,5 @@ position = Vector2( 13.5788, 32.2858 )
 disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="5"]
-position = Vector2( 14.8651, 32.1086 )
+position = Vector2( 14.6548, 2.46702 )
 shape = SubResource( 1 )

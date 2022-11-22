@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/INTERLUDE.ogg-47c27a54e985a28729fd43d4d36159eb.oggstr"
+
+[deps]
+
+source_file="res://Samples/INTERLUDE.ogg"
+dest_files=[ "res://.import/INTERLUDE.ogg-47c27a54e985a28729fd43d4d36159eb.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

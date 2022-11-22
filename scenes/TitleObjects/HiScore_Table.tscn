@@ -1,0 +1,656 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://fonts/pipeline_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/TitleObjects/HiScore_Table.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/Rubik-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 28
+extra_spacing_top = -2
+extra_spacing_bottom = -2
+font_data = SubResource( 1 )
+
+[node name="HiScore_Table" type="Control"]
+margin_left = 560.0
+margin_top = 240.0
+margin_right = 1360.0
+margin_bottom = 840.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -300.0
+margin_right = 400.0
+margin_bottom = 300.0
+color = Color( 0.298039, 0.196078, 0.0627451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background2" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -395.0
+margin_top = -295.0
+margin_right = 395.0
+margin_bottom = 295.0
+color = Color( 0.462745, 0.298039, 0.0705882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaiHiScoreContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.707
+margin_right = 0.707031
+size_flags_horizontal = 0
+size_flags_vertical = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginAboveTitle" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_right = 800.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Title" type="HBoxContainer" parent="MaiHiScoreContainer"]
+margin_top = 14.0
+margin_right = 800.0
+margin_bottom = 38.0
+alignment = 1
+
+[node name="Title_Label" type="Label" parent="MaiHiScoreContainer/Title"]
+margin_left = 239.0
+margin_right = 561.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 1 )
+text = "HIGH  SCORE  TABLE"
+align = 1
+
+[node name="MarginBelowTitle" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_top = 42.0
+margin_right = 800.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 0, 15 )
+
+[node name="HiScoreContainer" type="HBoxContainer" parent="MaiHiScoreContainer"]
+margin_top = 61.0
+margin_right = 800.0
+margin_bottom = 497.0
+
+[node name="LHS_Spacer" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_right = 50.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="Position" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 54.0
+margin_right = 154.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Position1" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "1."
+align = 1
+valign = 1
+
+[node name="Position2" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 44.0
+margin_right = 100.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2."
+align = 1
+valign = 1
+
+[node name="Position3" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 88.0
+margin_right = 100.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3."
+align = 1
+valign = 1
+
+[node name="Position4" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 132.0
+margin_right = 100.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "4."
+align = 1
+valign = 1
+
+[node name="Position5" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 176.0
+margin_right = 100.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "5."
+align = 1
+valign = 1
+
+[node name="Position6" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 220.0
+margin_right = 100.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "6."
+align = 1
+valign = 1
+
+[node name="Position7" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 264.0
+margin_right = 100.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "7."
+align = 1
+valign = 1
+
+[node name="Position8" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 308.0
+margin_right = 100.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "8."
+align = 1
+valign = 1
+
+[node name="Position9" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 352.0
+margin_right = 100.0
+margin_bottom = 392.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "9."
+align = 1
+valign = 1
+
+[node name="Position10" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Position"]
+margin_top = 396.0
+margin_right = 100.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "10."
+align = 1
+valign = 1
+
+[node name="Score" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 158.0
+margin_right = 358.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="Score1" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_right = 200.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "10000"
+align = 2
+valign = 1
+
+[node name="Score2" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 44.0
+margin_right = 200.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "9000"
+align = 2
+valign = 1
+
+[node name="Score3" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 88.0
+margin_right = 200.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "8000"
+align = 2
+valign = 1
+
+[node name="Score4" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 132.0
+margin_right = 200.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "7000"
+align = 2
+valign = 1
+
+[node name="Score5" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 176.0
+margin_right = 200.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "6000"
+align = 2
+valign = 1
+
+[node name="Score6" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 220.0
+margin_right = 200.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "5000"
+align = 2
+valign = 1
+
+[node name="Score7" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 264.0
+margin_right = 200.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "4000"
+align = 2
+valign = 1
+
+[node name="Score8" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 308.0
+margin_right = 200.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3000"
+align = 2
+valign = 1
+
+[node name="Score9" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 352.0
+margin_right = 200.0
+margin_bottom = 392.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2000"
+align = 2
+valign = 1
+
+[node name="Score10" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Score"]
+margin_top = 396.0
+margin_right = 200.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "1000"
+align = 2
+valign = 1
+
+[node name="Name" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 362.0
+margin_right = 512.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 150, 0 )
+
+[node name="Name1" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_right = 150.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name2" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 44.0
+margin_right = 150.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name3" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 88.0
+margin_right = 150.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name4" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 132.0
+margin_right = 150.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name5" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 176.0
+margin_right = 150.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name6" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 220.0
+margin_right = 150.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name7" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 264.0
+margin_right = 150.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name8" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 308.0
+margin_right = 150.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name9" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 352.0
+margin_right = 150.0
+margin_bottom = 392.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Name10" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Name"]
+margin_top = 396.0
+margin_right = 150.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="Lives" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 516.0
+margin_right = 641.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 125, 0 )
+
+[node name="Lives1" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_right = 125.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives2" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 44.0
+margin_right = 125.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives3" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 88.0
+margin_right = 125.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives4" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 132.0
+margin_right = 125.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives5" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 176.0
+margin_right = 125.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives6" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 220.0
+margin_right = 125.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives7" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 264.0
+margin_right = 125.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives8" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 308.0
+margin_right = 125.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives9" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 352.0
+margin_right = 125.0
+margin_bottom = 392.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Lives10" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Lives"]
+margin_top = 396.0
+margin_right = 125.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Skill" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 645.0
+margin_right = 745.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Skill1" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill2" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 44.0
+margin_right = 100.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill3" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 88.0
+margin_right = 100.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill4" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 132.0
+margin_right = 100.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill5" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 176.0
+margin_right = 100.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill6" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 220.0
+margin_right = 100.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill7" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 264.0
+margin_right = 100.0
+margin_bottom = 304.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill8" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 308.0
+margin_right = 100.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill9" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 352.0
+margin_right = 100.0
+margin_bottom = 392.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Skill10" type="Label" parent="MaiHiScoreContainer/HiScoreContainer/Skill"]
+margin_top = 396.0
+margin_right = 100.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="RHS_Spacer" type="VBoxContainer" parent="MaiHiScoreContainer/HiScoreContainer"]
+margin_left = 749.0
+margin_right = 799.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="PressToStart" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_top = 501.0
+margin_right = 800.0
+margin_bottom = 574.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 10
+custom_constants/margin_left = 25
+
+[node name="lblPressToStart" type="Label" parent="MaiHiScoreContainer/PressToStart"]
+margin_left = 25.0
+margin_top = 10.0
+margin_right = 775.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 0, 46 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 2 )
+text = "Press FIRE to start
+or ENTER for Options"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="BottomMargin" type="MarginContainer" parent="MaiHiScoreContainer"]
+margin_top = 578.0
+margin_right = 800.0
+margin_bottom = 593.0
+rect_min_size = Vector2( 0, 15 )

@@ -13,6 +13,8 @@ func logic(_args:Dictionary = {}):
 		_owner.pf.direction = get_next_direction(_owner.pf)
 	move(_owner.pf)
 	if abs(_owner.pf.direction.x) > 0:
+		_owner.col.disabled = true
+		_owner.colV.disabled = false
 		_owner.anim.play("Walk")
 		_owner.spr.flip_v = false
 		if _owner.pf.direction.x > 0:
@@ -20,6 +22,8 @@ func logic(_args:Dictionary = {}):
 		else:
 			_owner.spr.flip_h = false
 	if abs(_owner.pf.direction.y) > 0:
+		_owner.col.disabled = false
+		_owner.colV.disabled = true
 		_owner.anim.play("Climb")
 		_owner.spr.flip_h = false
 		if _owner.pf.direction.y > 0:

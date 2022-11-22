@@ -1,4 +1,5 @@
 extends Enemy
+signal DemoModeAdvance
 # warning-ignore:unused_class_variable
 var start_pos:Vector2
 # warning-ignore:unused_class_variable
@@ -14,6 +15,7 @@ var dist:float
 # warning-ignore:unused_class_variable
 var direction:Vector2
 
+
 func _ready():
 	fsm.add_states($States)
 	start_pos = Vector2(44,35) * globals.tile_size
@@ -21,7 +23,8 @@ func _ready():
 	speed = 150
 	timer.start(initial_delay)
 	self_destructs = true
-#	fsm._on_state_change("Climbing")
+	if globals.Demo_Mode:
+		self.connect("DemoModeAdvance",globals.mainscene,"_on_DemoModeAdvance")
 
 func _process(delta):
 	if fsm.state != null:
@@ -31,8 +34,8 @@ func _process(delta):
 
 func _collided(_a):
 	if _a.is_in_group("Bullet"):
-		#score modifier required
-		globals.hud._updateScore(globals.Current_Player,points)
+		globals.hud.updateScore(globals.Current_Player,points)
+		_a.boom(position + col.position)
 		_a.queue_free()
 		fsm._on_state_change("Dying")
 

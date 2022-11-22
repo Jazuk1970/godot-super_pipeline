@@ -1,0 +1,369 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://fonts/pipeline_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/TitleObjects/Options.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://fonts/Rubik-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 28
+extra_spacing_top = -7
+extra_spacing_bottom = -7
+font_data = SubResource( 1 )
+
+[node name="Options" type="Control"]
+margin_left = 560.0
+margin_top = 240.0
+margin_right = 1360.0
+margin_bottom = 840.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+highlight_color = Color( 0.054902, 0.815686, 0.894118, 1 )
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -300.0
+margin_right = 400.0
+margin_bottom = 300.0
+color = Color( 0.298039, 0.196078, 0.0627451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background2" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -395.0
+margin_top = -295.0
+margin_right = 395.0
+margin_bottom = 295.0
+color = Color( 0.462745, 0.298039, 0.0705882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainOptionsContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.707123
+margin_top = -0.707092
+margin_right = 0.707153
+margin_bottom = -0.707092
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginAboveTitle" type="MarginContainer" parent="MainOptionsContainer"]
+margin_right = 800.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Title" type="HBoxContainer" parent="MainOptionsContainer"]
+margin_top = 14.0
+margin_right = 800.0
+margin_bottom = 38.0
+alignment = 1
+
+[node name="Title_Label" type="Label" parent="MainOptionsContainer/Title"]
+margin_left = 271.0
+margin_right = 529.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 1 )
+text = "GAME SETTINGS"
+align = 1
+
+[node name="MarginBelowTitle" type="MarginContainer" parent="MainOptionsContainer"]
+margin_top = 42.0
+margin_right = 800.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="OptionsContainer" type="HBoxContainer" parent="MainOptionsContainer"]
+margin_top = 96.0
+margin_right = 800.0
+margin_bottom = 496.0
+size_flags_vertical = 3
+
+[node name="LHS_Spacer" type="VBoxContainer" parent="MainOptionsContainer/OptionsContainer"]
+margin_right = 50.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="OptionDescriptions" type="VBoxContainer" parent="MainOptionsContainer/OptionsContainer"]
+margin_left = 54.0
+margin_right = 514.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 460, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="lblNoOfPlayers" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionDescriptions"]
+margin_right = 460.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "Number of players"
+valign = 1
+
+[node name="lblNoOfLives" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionDescriptions"]
+margin_top = 60.0
+margin_right = 460.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "Number of lives"
+valign = 1
+
+[node name="lblStartingLevel" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionDescriptions"]
+margin_top = 120.0
+margin_right = 460.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "Starting level"
+valign = 1
+
+[node name="lblBGMusic" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionDescriptions"]
+margin_top = 180.0
+margin_right = 460.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "Background Music"
+valign = 1
+
+[node name="lblInstructions" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionDescriptions"]
+margin_top = 240.0
+margin_right = 460.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "Instructions"
+valign = 1
+
+[node name="OptionValues" type="VBoxContainer" parent="MainOptionsContainer/OptionsContainer"]
+margin_left = 518.0
+margin_right = 618.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 100, 0 )
+custom_constants/separation = 20
+
+[node name="valNoOfPlayers" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionValues"]
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="valNoOflives" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionValues"]
+margin_top = 60.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="valStartingLevel" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionValues"]
+margin_top = 120.0
+margin_right = 100.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="valBGMusic" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionValues"]
+margin_top = 180.0
+margin_right = 100.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+text = "ON"
+align = 1
+valign = 1
+
+[node name="valInstructions" type="Label" parent="MainOptionsContainer/OptionsContainer/OptionValues"]
+visible = false
+margin_top = 240.0
+margin_right = 100.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 1 )
+align = 1
+valign = 1
+
+[node name="OptionSelections" type="VBoxContainer" parent="MainOptionsContainer/OptionsContainer"]
+margin_left = 622.0
+margin_right = 746.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+
+[node name="selNoOfPlayers" type="HSlider" parent="MainOptionsContainer/OptionsContainer/OptionSelections"]
+margin_right = 124.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+focus_mode = 0
+min_value = 1.0
+max_value = 2.0
+value = 1.0
+rounded = true
+editable = false
+scrollable = false
+tick_count = 2
+ticks_on_borders = true
+
+[node name="selNoOfLives" type="HSlider" parent="MainOptionsContainer/OptionsContainer/OptionSelections"]
+margin_top = 60.0
+margin_right = 124.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 40 )
+focus_mode = 0
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+rounded = true
+editable = false
+scrollable = false
+tick_count = 8
+ticks_on_borders = true
+
+[node name="selStartingLevel" type="HSlider" parent="MainOptionsContainer/OptionsContainer/OptionSelections"]
+margin_top = 120.0
+margin_right = 124.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 100, 40 )
+focus_mode = 0
+min_value = 1.0
+max_value = 16.0
+value = 1.0
+rounded = true
+editable = false
+scrollable = false
+tick_count = 8
+ticks_on_borders = true
+
+[node name="selBGMusic" type="CheckButton" parent="MainOptionsContainer/OptionsContainer/OptionSelections"]
+margin_top = 180.0
+margin_right = 124.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 100, 40 )
+focus_mode = 0
+custom_fonts/font = ExtResource( 1 )
+disabled = true
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
+
+[node name="selInstructions" type="Control" parent="MainOptionsContainer/OptionsContainer/OptionSelections"]
+visible = false
+margin_top = 240.0
+margin_right = 124.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RHS_Spacer" type="VBoxContainer" parent="MainOptionsContainer/OptionsContainer"]
+margin_left = 750.0
+margin_right = 800.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 50, 0 )
+
+[node name="InstructionsContainer" type="MarginContainer" parent="MainOptionsContainer"]
+visible = false
+margin_top = 96.0
+margin_right = 800.0
+margin_bottom = 446.0
+custom_constants/margin_right = 25
+custom_constants/margin_left = 25
+
+[node name="lblInstructions" type="Label" parent="MainOptionsContainer/InstructionsContainer"]
+margin_left = 25.0
+margin_right = 775.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 0, 350 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 2 )
+text = "Instructions
+
+Keep the pipeline open.      Take workmen to fix plugs.     Watch out for falling plugs, pipe spiders & other deadly bugs.
+
+Note: Workmen are expendable just like piers letcher!
+Use Joystick or cursor keys & space to fire.
+Press 'P' to pause during game.
+
+Press ENTER to return to game settings.
+
+"
+valign = 3
+autowrap = true
+clip_text = true
+
+[node name="PressToStart" type="MarginContainer" parent="MainOptionsContainer"]
+visible = false
+margin_top = 500.0
+margin_right = 800.0
+margin_bottom = 546.0
+custom_constants/margin_right = 25
+custom_constants/margin_left = 25
+
+[node name="lblPressToStart" type="Label" parent="MainOptionsContainer/PressToStart"]
+margin_left = 25.0
+margin_right = 775.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 0, 46 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 2 )
+text = "Press FIRE to start
+or ENTER for Options"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="AdjustmentHelp" type="MarginContainer" parent="MainOptionsContainer"]
+margin_top = 500.0
+margin_right = 800.0
+margin_bottom = 546.0
+custom_constants/margin_right = 25
+custom_constants/margin_left = 25
+
+[node name="lblAdjustmentHelp" type="Label" parent="MainOptionsContainer/AdjustmentHelp"]
+margin_left = 25.0
+margin_right = 775.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 0, 46 )
+rect_clip_content = true
+custom_fonts/font = SubResource( 2 )
+text = "Adjustment Help"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="BottomMargin" type="MarginContainer" parent="MainOptionsContainer"]
+margin_top = 550.0
+margin_right = 800.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 50 )
+[connection signal="value_changed" from="MainOptionsContainer/OptionsContainer/OptionSelections/selNoOfPlayers" to="." method="_on_selNoOfPlayers_value_changed"]
+[connection signal="value_changed" from="MainOptionsContainer/OptionsContainer/OptionSelections/selNoOfLives" to="." method="_on_selNoOfLives_value_changed"]
+[connection signal="value_changed" from="MainOptionsContainer/OptionsContainer/OptionSelections/selStartingLevel" to="." method="_on_selStartingLevel_value_changed"]
+[connection signal="toggled" from="MainOptionsContainer/OptionsContainer/OptionSelections/selBGMusic" to="." method="_on_selBGMusic_toggled"]

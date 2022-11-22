@@ -10,7 +10,6 @@ func logic(_args:Dictionary = {}):
 	var _delta = _args["delta"]
 	#Check if we are empty
 	if _owner.current_state == _owner.empty_state:
-		#_owner.nextstate = "Empty"
 		emit_signal("StateChange","Empty")
 	#if we are not empty request a flow update
 	elif _owner.nextflowupdate == 0:

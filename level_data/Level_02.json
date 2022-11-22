@@ -71,8 +71,8 @@
                                   "id": "1",
                                   "speed":"350",
                                   "points":"25",
-                                  "spawn_frequency":"10",
-                                  "initial_delay":"15"
+                                  "spawn_frequency":"4",
+                                  "initial_delay":"0"
                                   }
                                 },
                         "Flea":{
@@ -90,16 +90,7 @@
                                   "spawn_frequency":"15",
                                   "initial_delay":"7"
                                   }
-                                },
-                        "Lobster":{
-                                 "1":{
-                                  "id": "1",
-                                  "speed":"300",
-                                  "points":"50",
-                                  "spawn_frequency":"18",
-                                  "initial_delay":"20"
-                                  }
-								                  }
+                                }
                       },
             "Helpers":{
                         "Standard":{
@@ -115,11 +106,12 @@
                       },
             "Player_Start_Position":"0814",
             "Player_Start_Direction":"2",
-            "Target_Fill":"100",
+            "Target_Fill":"1000",
             "Next_Level":"02A",
             "Level_Colour":"01",            
             "LevelName":"Pipeline 02",
             "Level_Type":"Pipeline",
+            "Music":"BGM2",
             "PipeData":"05140201000102080001020601012001100112021101210101010205000102060001220112012301000102060001020500010501010102050001020201010202010121011201200101010202010123011001050111011202110121010101020600010207000123011001120111012201000102010101210112012301000102040101"
           }
 

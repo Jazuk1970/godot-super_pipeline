@@ -4,7 +4,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 40.6797, 27.9473 )
+extents = Vector2( 22.0158, 11.9283 )
 
 [node name="mob" type="Area2D"]
 z_index = 10

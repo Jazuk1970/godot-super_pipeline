@@ -50,8 +50,8 @@
                                   "id": "1",
                                   "speed":"350",
                                   "points":"25",
-                                  "spawn_frequency":"10",
-                                  "initial_delay":"15"
+                                  "spawn_frequency":"4",
+                                  "initial_delay":"0"
                                   }
                                 },
                         "Flea":{
@@ -59,15 +59,15 @@
                                   "id": "1",
                                   "speed":"400",
                                   "points":"100",
-                                  "spawn_frequency":"12",
+                                  "spawn_frequency":"6",
                                   "initial_delay":"5"
                                   },
                                  "2":{
                                   "id": "2",
                                   "speed":"350",
                                   "points":"50",
-                                  "spawn_frequency":"15",
-                                  "initial_delay":"7"
+                                  "spawn_frequency":"7",
+                                  "initial_delay":"8"
                                   }
                                 },
                         "Lobster":{
@@ -75,8 +75,8 @@
                                   "id": "1",
                                   "speed":"300",
                                   "points":"50",
-                                  "spawn_frequency":"18",
-                                  "initial_delay":"20"
+                                  "spawn_frequency":"28",
+                                  "initial_delay":"5"
                                   }
 				                          },
                         "Block":{
@@ -103,11 +103,12 @@
                       },
             "Player_Start_Position":"0814",
             "Player_Start_Direction":"2",
-            "Target_Fill":"1000",
+            "Target_Fill":"3000",
             "Next_Level":"08",
-            "Level_Colour":"00",
+            "Level_Colour":"06",
             "LevelName":"Pipeline 07",
             "Level_Type":"Pipeline",
+            "Music":"BGM3",
             "PipeData":"05140001000102050101200110011202120212021202120211012101010102030001220111011203110112031001230100010203000105010101020600010206000102020101020100010202010120011001120311011203110121010101000122011101100120010101000122011101120212020501100123010001020101012001100115011101110121010101020101010501000102060001020601010501000123011001110122010001050101010205010102040101"
           }
 

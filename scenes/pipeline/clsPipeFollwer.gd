@@ -34,4 +34,4 @@ var fdmemory:Vector2
 var moving:bool
 # warning-ignore:unused_class_variable
 var available_directions:Dictionary = {}
-
+# warning-ignore:unused_class_variable

@@ -1,0 +1,471 @@
+[gd_scene load_steps=42 format=2]
+
+[ext_resource path="res://scenes/Game/States/HiScores.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Game/Paused.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Game/States/LifeLost.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Game/hud.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Game/States/Intermission.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Game/States/NewHiScore.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Game/States/Title.gd" type="Script" id=7]
+[ext_resource path="res://scenes/Game/States/NewGame.gd" type="Script" id=8]
+[ext_resource path="res://scenes/Game/States/GameOver.gd" type="Script" id=9]
+[ext_resource path="res://fonts/Rubik-Bold.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://scenes/Game/Game.gd" type="Script" id=11]
+[ext_resource path="res://scenes/Game/States/Quit.gd" type="Script" id=12]
+[ext_resource path="res://scenes/TitleObjects/HiScore_Entry.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/TitleObjects/HiScore_Table.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/TitleObjects/TitleText.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/TitleObjects/Rocket/Rocket.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/TitleObjects/Options.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/pipeline/pipeline.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/enemies/EnemySpawner.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/barrel/barrel.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/helpers/HelperSpawner.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/TitleObjects/Lobster/Lobster.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/TitleObjects/Taskset/Taskset.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/TitleObjects/GameOver.tscn" type="PackedScene" id=25]
+[ext_resource path="res://fonts/pipeline_font.tres" type="DynamicFont" id=26]
+[ext_resource path="res://scenes/Game/States/Play.gd" type="Script" id=27]
+[ext_resource path="res://scenes/Game/States/LevelReset.gd" type="Script" id=28]
+[ext_resource path="res://scenes/Game/States/LoadLevel.gd" type="Script" id=29]
+[ext_resource path="res://scenes/Game/States/DrawLevel.gd" type="Script" id=30]
+[ext_resource path="res://scenes/Game/States/LevelComplete.gd" type="Script" id=31]
+[ext_resource path="res://scenes/Game/States/Init.gd" type="Script" id=32]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+extra_spacing_top = -7
+extra_spacing_bottom = -7
+font_data = ExtResource( 10 )
+
+[sub_resource type="Animation" id=2]
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("lblScore:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.584314, 0.0627451, 0.0627451, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("lblScore:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("lblScore:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.584314, 0.0627451, 0.0627451, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("lblScore:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+extra_spacing_top = -4
+extra_spacing_bottom = -4
+font_data = ExtResource( 10 )
+
+[sub_resource type="Animation" id=7]
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 865, 515 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 1.75
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 865, -300 ), Vector2( 865, 515 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 865, 515 ), Vector2( 865, -300 ) ]
+}
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 11 )
+oPlayer = ExtResource( 14 )
+oPipeline = ExtResource( 19 )
+oEnemySpawner = ExtResource( 20 )
+oHelperSpawner = ExtResource( 22 )
+oBarrel = ExtResource( 21 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 10
+
+[node name="Paused" type="Control" parent="CanvasLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Paused"]
+margin_left = 650.0
+margin_top = 465.0
+margin_right = 1000.0
+margin_bottom = 590.0
+rect_pivot_offset = Vector2( 175, 62 )
+color = Color( 0.0368, 0.15272, 0.23, 0.737255 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Paused"]
+margin_left = 760.0
+margin_top = 515.0
+margin_right = 892.0
+margin_bottom = 539.0
+custom_fonts/font = SubResource( 1 )
+text = "PAUSED"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hud" type="Container" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1900.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 1900, 140 )
+rect_pivot_offset = Vector2( -575.263, -228.421 )
+size_flags_vertical = 0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainHud" type="VBoxContainer" parent="hud"]
+margin_right = 1900.0
+margin_bottom = 174.0
+rect_min_size = Vector2( 1900, 150 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Control" type="Control" parent="hud/MainHud"]
+margin_right = 1900.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="TopLine" type="HBoxContainer" parent="hud/MainHud"]
+margin_top = 34.0
+margin_right = 1900.0
+margin_bottom = 86.0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="PL1_Score" type="VBoxContainer" parent="hud/MainHud/TopLine"]
+margin_right = 550.0
+margin_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 0
+rect_min_size = Vector2( 550, 0 )
+size_flags_vertical = 0
+alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="hud/MainHud/TopLine/PL1_Score"]
+anims/Active = SubResource( 2 )
+anims/Inactive = SubResource( 3 )
+
+[node name="lblScore" type="Label" parent="hud/MainHud/TopLine/PL1_Score"]
+margin_right = 550.0
+margin_bottom = 24.0
+grow_vertical = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 26 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "PL 1"
+align = 1
+max_lines_visible = 1
+
+[node name="Score" type="Label" parent="hud/MainHud/TopLine/PL1_Score"]
+margin_top = 28.0
+margin_right = 550.0
+margin_bottom = 52.0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 26 )
+text = "000000"
+align = 1
+
+[node name="HI_Score" type="VBoxContainer" parent="hud/MainHud/TopLine"]
+margin_left = 554.0
+margin_right = 1104.0
+margin_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 550, 52 )
+alignment = 1
+
+[node name="lblScore" type="Label" parent="hud/MainHud/TopLine/HI_Score"]
+margin_right = 550.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 26 )
+text = "HI SCORE"
+align = 1
+
+[node name="Score" type="Label" parent="hud/MainHud/TopLine/HI_Score"]
+margin_top = 28.0
+margin_right = 550.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 26 )
+text = "000000"
+align = 1
+
+[node name="PL2_Score" type="VBoxContainer" parent="hud/MainHud/TopLine"]
+margin_left = 1108.0
+margin_right = 1658.0
+margin_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 550, 52 )
+alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="hud/MainHud/TopLine/PL2_Score"]
+anims/Active = SubResource( 4 )
+anims/Inactive = SubResource( 5 )
+
+[node name="lblScore" type="Label" parent="hud/MainHud/TopLine/PL2_Score"]
+margin_right = 550.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 26 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "PL  2"
+align = 1
+
+[node name="Score" type="Label" parent="hud/MainHud/TopLine/PL2_Score"]
+margin_top = 28.0
+margin_right = 550.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 26 )
+text = "000000"
+align = 1
+
+[node name="MidLine" type="HBoxContainer" parent="hud/MainHud"]
+margin_top = 90.0
+margin_right = 1900.0
+margin_bottom = 120.0
+
+[node name="DemoMode" type="Label" parent="hud/MainHud/MidLine"]
+margin_right = 1809.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0.956863, 0.901961, 0.0784314, 1 )
+text = "DEMO         DEMO         DEMO         DEMO         DEMO         DEMO         DEMO         DEMO         DEMO         DEMO         DEMO         DEMO"
+align = 1
+
+[node name="BottomLine" type="HBoxContainer" parent="hud/MainHud"]
+margin_top = 124.0
+margin_right = 1900.0
+margin_bottom = 154.0
+grow_vertical = 0
+rect_min_size = Vector2( 620, 0 )
+size_flags_vertical = 0
+
+[node name="PL1_Lives" type="HBoxContainer" parent="hud/MainHud/BottomLine"]
+margin_right = 550.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 550, 30 )
+alignment = 1
+
+[node name="lblLives" type="Label" parent="hud/MainHud/BottomLine/PL1_Lives"]
+margin_left = 198.0
+margin_top = 3.0
+margin_right = 304.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 26 )
+custom_colors/font_color = Color( 0.584314, 0.0627451, 0.0627451, 1 )
+text = "LIVES  "
+
+[node name="Lives" type="Label" parent="hud/MainHud/BottomLine/PL1_Lives"]
+margin_left = 308.0
+margin_top = 3.0
+margin_right = 352.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 26 )
+custom_colors/font_color = Color( 0.584314, 0.0627451, 0.0627451, 1 )
+text = "00"
+
+[node name="LevelName" type="HBoxContainer" parent="hud/MainHud/BottomLine"]
+margin_left = 554.0
+margin_right = 1104.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 550, 30 )
+alignment = 1
+
+[node name="Name" type="Label" parent="hud/MainHud/BottomLine/LevelName"]
+margin_left = 180.0
+margin_top = 3.0
+margin_right = 369.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 26 )
+text = "Level Name "
+align = 1
+
+[node name="PL2_Lives" type="HBoxContainer" parent="hud/MainHud/BottomLine"]
+margin_left = 1108.0
+margin_right = 1658.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 550, 30 )
+alignment = 1
+
+[node name="lblLives" type="Label" parent="hud/MainHud/BottomLine/PL2_Lives"]
+margin_left = 198.0
+margin_top = 3.0
+margin_right = 304.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 26 )
+custom_colors/font_color = Color( 0.584314, 0.0627451, 0.0627451, 1 )
+text = "LIVES  "
+
+[node name="Lives" type="Label" parent="hud/MainHud/BottomLine/PL2_Lives"]
+margin_left = 308.0
+margin_top = 3.0
+margin_right = 352.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 26 )
+custom_colors/font_color = Color( 0.584314, 0.0627451, 0.0627451, 1 )
+text = "00"
+
+[node name="States" type="Node" parent="."]
+
+[node name="Init" type="Node" parent="States"]
+script = ExtResource( 32 )
+
+[node name="LoadLevel" type="Node" parent="States"]
+script = ExtResource( 29 )
+
+[node name="DrawLevel" type="Node" parent="States"]
+script = ExtResource( 30 )
+
+[node name="Play" type="Node" parent="States"]
+script = ExtResource( 27 )
+
+[node name="Quit" type="Node" parent="States"]
+script = ExtResource( 12 )
+
+[node name="LevelComplete" type="Node" parent="States"]
+script = ExtResource( 31 )
+
+[node name="LevelReset" type="Node" parent="States"]
+script = ExtResource( 28 )
+
+[node name="Intermission" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Title" type="Node" parent="States"]
+script = ExtResource( 7 )
+oRocket = ExtResource( 17 )
+oTaskSet = ExtResource( 24 )
+oLobster = ExtResource( 23 )
+oTitleText = ExtResource( 16 )
+oOptions = ExtResource( 18 )
+
+[node name="NewGame" type="Node" parent="States"]
+script = ExtResource( 8 )
+
+[node name="HiScores" type="Node" parent="States"]
+script = ExtResource( 1 )
+oHiScores = ExtResource( 15 )
+
+[node name="LifeLost" type="Node" parent="States"]
+script = ExtResource( 3 )
+
+[node name="NewHiScore" type="Node" parent="States"]
+script = ExtResource( 6 )
+oHiScoresEntry = ExtResource( 13 )
+
+[node name="GameOver" type="Node" parent="States"]
+script = ExtResource( 9 )
+oGameOver = ExtResource( 25 )
+
+[node name="level" type="Node" parent="."]
+
+[node name="enemies" type="Node" parent="."]
+
+[node name="helpers" type="Node" parent="."]
+
+[node name="players" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 865, 515 )
+current = true
+zoom = Vector2( 0.9, 0.9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Play = SubResource( 7 )
+anims/ScreenIn = SubResource( 8 )
+anims/ScreenOut = SubResource( 9 )

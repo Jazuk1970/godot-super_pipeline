@@ -15,7 +15,10 @@ func logic(_args:Dictionary = {}):
 	move(_dist,_owner.direction)
 	if _owner.position.y == _owner.target_pos.y:
 		randomize()
-		emit_signal("StateChange","Walking")
+		if !globals.Demo_Mode:
+			emit_signal("StateChange","Walking")
+		else:
+			_owner.emit_signal("DemoModeAdvance")
 
 func move(_dist,_dir) -> void:
 	if _owner.position.y - _owner.target_pos.y < _dist:

@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/enemies/types/Ant/States/Walking.gd" type="Script" id=4]
 [ext_resource path="res://scenes/enemies/types/Ant/States/Releasing.gd" type="Script" id=5]
 [ext_resource path="res://scenes/enemies/types/Ant/States/Dying.gd" type="Script" id=6]
-[ext_resource path="res://scenes/mobs/gfx/characters.png" type="Texture" id=7]
+[ext_resource path="res://scenes/mobs/gfx/characters_new.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Climb"

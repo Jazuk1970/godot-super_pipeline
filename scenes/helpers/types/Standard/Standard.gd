@@ -25,6 +25,7 @@ var pipemap:TileMap
 # warning-ignore:unused_class_variable
 var pipeline:Object
 var winning:bool = false
+var hammer_collisions:Array = []
 
 
 func _ready():
@@ -33,19 +34,15 @@ func _ready():
 	add_to_group(type)
 	add_to_group("Helpers")
 	Spawner = globals.level.get_node("HelperSpawner")
-
 	if not Spawner.helpers.has(type):
 		Spawner.helpers[type] = []
 	Spawner.helpers[type].append(name)
-
-	#speed = 400
 	pipeline = globals.level.get_node("pipeline")
 	pipemap = pipeline.map
 	fsm.add_states($States)
 	pf.facingdirection = Vector2.RIGHT
 	pf.gridpos = Vector2(-2,globals.getVect(globals.Level_Data.Player_Start_Position).y)
 	_setposition(pipemap.map_to_world(pf.gridpos) + Vector2(1,1))
-	#start_pos = Vector2(-2,14) * globals.tile_size
 	fsm._on_state_change("Spawning")
 
 func _process(delta):
@@ -55,9 +52,9 @@ func _process(delta):
 		fsm.state.logic(_args)
 	#Set the sprite facing direction
 	if pf.facingdirection.x > 0:
-		spr.flip_h = true
+		scale.x = abs(scale.x) * -1
 	else:
-		spr.flip_h = false
+		scale.x = abs(scale.x)
 
 func _setposition(_p):
 	pf.position = _p
@@ -67,17 +64,17 @@ func _setposition(_p):
 		pf.supressdirchange = false
 	pf.gridpos = _newgridpos
 
+func setpositionfromgrid(_gp):
+	_setposition(pipemap.map_to_world(_gp) + Vector2(1,1))
+
 func _collided(_a):
 	#Check if we have collided with an enemy
 	if _a.is_in_group("Enemy"):
 		#Check if the enemy is a plug
 		if _a.is_in_group("Plug"):
-			#Check if the plug is currently  blocking flow
-			if _a.fsm.statename == "Blocking":
-				#Set the helper state to repairing
-				fsm._on_state_change("Repairing")
-				#Set the target plug so we know what to remove when the repair is done
-				target = _a
+			if _a.fsm.statename == "Dropping":
+				#Set the helper state to dying as the enemy has killed him
+				fsm._on_state_change("Dying")
 		#If the enemy is not a plug, is the enemy not currently dying
 		elif _a.fsm.statename != "Dying":
 			#Set the helper state to dying as the enemy has killed him
@@ -93,14 +90,37 @@ func _collided(_a):
 			if fsm.state.name != "Following":
 				fsm._on_state_change("Following")
 
+func _hammer_collided(_a):
+	#Check if we have collided with an enemy
+	if _a.is_in_group("Enemy"):
+		#Check if the enemy is a plug
+		if _a.is_in_group("Plug"):
+			#Check if the plug is currently  blocking flow
+			if _a.fsm.statename == "Blocking":
+				#Set the helper state to repairing
+				fsm._on_state_change("Repairing")
+				#Set the target plug so we know what to remove when the repair is done
+				target = _a
+
+
 func _on_area_entered(area):
 	if not collisions.has(area):
 		collisions.append(area)
-		_collided(area)
+		if globals.Game_State.statename == "Play":
+			_collided(area)
 
 func _on_area_exited(area):
 	if collisions.has(area):
 		collisions.erase(area)
+
+func _on_Hammer_area_entered(area):
+	if not hammer_collisions.has(area):
+		hammer_collisions.append(area)
+		_hammer_collided(area)
+
+func _on_Hammer_area_exited(area):
+	if hammer_collisions.has(area):
+		hammer_collisions.erase(area)
 
 func _exit_tree():
 	if Spawner.helpers.has(type):

@@ -10,6 +10,8 @@ func enter(_args:Dictionary = {}):
 	_owner.setposition(_owner.pipemap.map_to_world(_owner.pf.gridpos) + Vector2(1,1))
 
 	_owner.anim.play("Walk")
+	if globals.Game_State.statename == "Play":
+		AudioManager.sfx_play("LOBSTER")
 	emit_signal("StateChange","WalkPipe")
 	
 func exit(_args:Dictionary = {}):

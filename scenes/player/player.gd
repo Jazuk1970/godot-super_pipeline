@@ -1,6 +1,8 @@
 extends Area2D
+signal lifelost
 #Preload scenes
 var oBullet = preload("res://scenes/player/bullet/bullet.tscn")
+var fsm:StateMachine = StateMachine.new()
 signal directionchange
 # warning-ignore:unused_class_variable
 onready var parent = get_parent()
@@ -8,6 +10,7 @@ onready var spr = $Sprite
 onready var anim = $AnimationPlayer
 onready var scdtimer = $ShootCoolDown
 onready var bulletspawn = $Sprite/BulletSpawn
+onready var coll = $CollisionShape2D
 export var speed = 400
 var pipemap:TileMap
 var pipeline:Object
@@ -20,18 +23,24 @@ var winning:bool = false
 var remote_input_direction:Vector2 = Vector2.ZERO
 
 func _ready():
-	set_process(true)
-#	var _owner = get_parent()
 	var _owner = globals.mainscene
+	set_process(true)
+	fsm._owner = self
+	fsm.add_states($States)
+	fsm._on_state_change("Alive")
 	pipeline = _owner.get_node("level/pipeline")
 	pipemap = pipeline.map
 	anim.play("StandStill")
 	pf.facingdirection = Vector2.RIGHT
 	_setposition(pipemap.map_to_world(pf.gridpos) + Vector2(1,1))
+	if globals.Demo_Mode:
+		coll.disabled = true
+	else:
+		coll.disabled = false
 
 func _process(delta):
 	if moveenabled:
-		if globals.Level_Data.Level_Type == "Pipeline":
+		if globals.Level_Data.Level_Type == "Pipeline" and !globals.Demo_Mode:
 			pf.inputdirection = get_input_direction()
 		else:
 			pf.inputdirection = remote_input_direction
@@ -43,28 +52,19 @@ func _process(delta):
 			if pf.direction.abs() == Vector2.ONE:
 				#if both horizontal and vertical movements are requested first try the direction we were last moving in
 				pf.direction = pf.inputdirection * pf.lastmovement
-	#			pf =  pipeline.checkmove(pf)
 				pipeline.checkmove(pf)
-	#			pf.dist = pf.available_directions[pf.direction]
 				#if we cannot move in the same direction as last time or we are at a junction, try the other direction
 				if pf.dist == 0:# or (pf.ti[6] in [2,1002] and not pf.supressdirchange):
 					pf.supressdirchange = true
 					if pf.lastmovement == Vector2.RIGHT:
 						pf.direction = pf.inputdirection * Vector2.DOWN
-	#					pf.dist = speed * delta
-	#					pf =  pipeline.checkmove(pf)
-						pf.dist = pf.available_directions[pf.direction]
+						pf.dist *= pf.available_directions[pf.direction]
 					else:
 						pf.direction = pf.inputdirection * Vector2.RIGHT
-	#					pf.dist = speed * delta
-	#					pf =  pipeline.checkmove(pf)
-						pf.dist = pf.available_directions[pf.direction]
+						pf.dist *= pf.available_directions[pf.direction]
 
 			else:
-	#			pf =  pipeline.checkmove(pf)
 				pipeline.checkmove(pf)
-	#			pf.dist = pf.available_directions[pf.direction]
-	#			pf =  pipeline.checkmove(pf)
 
 			if pf.direction.x > 0 or abs(pf.direction.y) > 0:
 				spr.flip_h = true
@@ -79,11 +79,9 @@ func _process(delta):
 				pf = move(pf)
 		else:
 			pf.moving = false
-		if globals.Level_Data.Level_Type == "Pipeline":
+		if globals.Level_Data.Level_Type == "Pipeline" and !globals.Demo_Mode:
 			if Input.is_action_pressed("fire") and canshoot and not pf.moving and pf.facingdirection.abs() == Vector2.RIGHT:
 				_shoot(pf)
-
-	#	pf = _setanimation(pf)
 		_setanimation(pf)
 		var _atm = true if pf.dist else false
 	if winning:
@@ -97,19 +95,14 @@ func get_input_direction():
 
 func move(_pf) -> PipeFollower:
 	_pf.moving = true
-#	emit_signal("directionchange",[_pf.direction,_pf.gridpos,_pf.lastmovement,"update"])
 	_setposition(_pf.position + (_pf.dist * _pf.direction))
 	var _axis = _pf.direction.abs()
 	if _pf.direction != _pf.prevdirection and _pf.direction:
 		_pf.prevdirection = _pf.direction
-		#emit_signal("directionchange",[_pf.direction,position,"dir change"])
 		emit_signal("directionchange",[_pf.position,_pf.direction])
-
 	if _pf.lastmovement != _axis:
 		_pf.lastmovement = _axis
-
 		var _pos = pipemap.map_to_world(_pf.gridpos)
-		#emit_signal("directionchange",[_pf.direction,_pos,"axis_change"])
 		if _axis == Vector2.RIGHT:
 			_pos.y += pipeline._topHMove
 			_pos.x = _pf.position.x
@@ -132,10 +125,10 @@ func _shoot(_pf):
 	_bullet.direction = Vector2(1,0) if spr.flip_h else Vector2(-1,0)#pf.facingdirection
 	var _level = globals.mainscene.get_node("level")
 	_level.add_child(_bullet)
+	AudioManager.sfx_play("SHOT")
 	anim.play("Shoot")
 	scdtimer.start(cooldowntime)
 	canshoot = false
-
 
 func _setposition(_p):
 	pf.position = _p
@@ -145,9 +138,9 @@ func _setposition(_p):
 		pf.supressdirchange = false
 	pf.gridpos = _newgridpos
 
-func _setanimation(_pf):# -> PipeFollower:
+func _setanimation(_pf):
 	if anim.current_animation == "Shoot":
-		 return #_pf
+		 return 
 	if _pf.moving:
 		if _pf.prevdirection != _pf.fdmemory or not anim.is_playing():
 			_pf.facingdirection = _pf.prevdirection
@@ -169,18 +162,16 @@ func _setanimation(_pf):# -> PipeFollower:
 				_:
 					anim.play("StandStill")
 			_pf.fdmemory = Vector2.ZERO
-	return #_pf
-
+	return 
 
 func _on_ShootCoolDown_timeout():
 	canshoot = true
 	anim.play("StandStill")
 
-
 func _on_player_area_entered(area):
 	if not collisions.has(area):
 		collisions.append(area)
-
+		_collided(area)
 
 func _on_player_area_exited(area):
 	if collisions.has(area):
@@ -189,3 +180,21 @@ func _on_player_area_exited(area):
 func _winning():
 	winning = true
 	moveenabled = false
+
+func _collided(_a):
+	#Check if we have collided with an enemy
+	if _a.is_in_group("Enemy"):
+		#Check if the enemy is a plug
+		if _a.is_in_group("Plug"):
+			if _a.fsm.statename == "Dropping":
+				#Set the helper state to dying as the enemy has killed him
+				fsm._on_state_change("Dying")
+		#If the enemy is not a plug, is the enemy not currently dying
+		elif _a.fsm.statename != "Dying":
+			#Set the helper state to dying as the enemy has killed him
+			fsm._on_state_change("Dying")
+			#Set the enemy state to dying also to remove the enemy
+			_a.fsm._on_state_change("Dying")
+
+func stop():
+	anim.play("StandStill")

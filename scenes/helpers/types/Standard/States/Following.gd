@@ -14,14 +14,16 @@ func enter(_args:Dictionary = {}):
 	current_target_position = _owner.target.position
 	_owner._setposition(_owner.position)
 	_owner.anim.play("Idle")
-	_owner.target.connect("directionchange",self,"_player_direction_changed")
+	if not _owner.target.is_connected("directionchange",self,"_player_direction_changed"):
+		_owner.target.connect("directionchange",self,"_player_direction_changed")
 	moving_to_position = false
 	last_player_positions.clear()
 	last_player_positions.append([_owner.target.position,clamp_direction(_owner.position.direction_to(current_target_position))])
-	flashing = false
-	_owner.spr.modulate = Color8(255,255,255)
-	_owner.timer.one_shot = true
-	_owner.timer.start(flashrate)
+	if globals.Game_State.statename == "Play":
+		flashing = false
+		_owner.spr.modulate = Color8(255,255,255)
+		_owner.timer.one_shot = true
+		_owner.timer.start(flashrate)
 
 func exit(_args:Dictionary = {}):
 	_owner.spr.modulate = Color8(255,255,255)
@@ -137,10 +139,6 @@ func _setanimation(_pf):# -> PipeFollower:
 				_:
 					_owner.anim.play("Idle")
 			_pf.fdmemory = Vector2.ZERO
-#	if _pf.facingdirection.x > 0 or abs(_pf.facingdirection.y) > 0:
-#			_owner.spr.flip_h = true
-#	else:
-#			_owner.spr.flip_h = false
 	return #_pf
 
 

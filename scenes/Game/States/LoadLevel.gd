@@ -10,15 +10,18 @@ func enter(_args:Dictionary = {}):
 		_owner.pipeline.pipestring = globals.Level_Data.PipeData
 		_owner.pipeline.targetfill = globals.Level_Data.Target_Fill
 		globals.level.add_child(_owner.pipeline)
-		globals.hud._updateLevelName(globals.Level_Data.LevelName)
+		globals.hud.updateLevelName(globals.Level_Data.LevelName)
+		globals.hud.updateLives(globals.Current_Player,0)
+		globals.hud.demomode(globals.Demo_Mode)
 		if globals.Level_Data.Level_Type == "Pipeline":
 			globals.hud.visible = true
+			_owner.pipeline.showbackground(true)
 			_owner.pipeline.flow_rate = 0.03
 		else:
 			globals.hud.visible = false
+			_owner.pipeline.showbackground(false)
 			_owner.pipeline.flow_rate = 0.03
-			globals.bgmusic.play()
-		
+		globals.cameraanim.play("Play")
 		emit_signal("StateChange","DrawLevel")
 		
 

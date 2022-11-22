@@ -78,8 +78,8 @@
                                   "id": "1",
                                   "speed":"350",
                                   "points":"25",
-                                  "spawn_frequency":"10",
-                                  "initial_delay":"15"
+                                  "spawn_frequency":"4",
+                                  "initial_delay":"0"
                                   }
                                 },
                         "Flea":{
@@ -89,13 +89,6 @@
                                   "points":"100",
                                   "spawn_frequency":"12",
                                   "initial_delay":"5"
-                                  },
-                                 "2":{
-                                  "id": "2",
-                                  "speed":"350",
-                                  "points":"50",
-                                  "spawn_frequency":"15",
-                                  "initial_delay":"7"
                                   }
                                 },
                         "Lobster":{
@@ -103,8 +96,8 @@
                                   "id": "1",
                                   "speed":"300",
                                   "points":"50",
-                                  "spawn_frequency":"18",
-                                  "initial_delay":"20"
+                                  "spawn_frequency":"30",
+                                  "initial_delay":"5"
                                   }
 				                          },
                         "Block":{
@@ -131,11 +124,12 @@
                       },
             "Player_Start_Position":"0814",
             "Player_Start_Direction":"2",
-            "Target_Fill":"1000",
+            "Target_Fill":"2000",
             "Next_Level":"04A",
-            "Level_Colour":"00",
+            "Level_Colour":"03",
             "LevelName":"Pipeline 04",
             "Level_Type":"Pipeline",
+            "Music":"BGM4",
             "PipeData":"051400010001020401012001100111012201000102020101020201010203010120011201220100010202000102020101210111011203100123010001010120011001120310011101120311012101010102030001220111011201100105011101120310012001010102020001020601010202000123011001120105011101210101010203000123011001110122010001020401010205010102040101"
           }
 

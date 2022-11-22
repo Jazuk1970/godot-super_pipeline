@@ -3,6 +3,8 @@ func enter(_args:Dictionary = {}):
 	_owner.target_pos = Vector2(0,35) * globals.tile_size
 	_owner.direction = Vector2.DOWN
 	_owner.anim.play("Dying")
+	AudioManager.sfx_play("THUD")
+	AudioManager.sfx_stop("HAMMER")
 	
 func exit(_args:Dictionary = {}):
 	pass

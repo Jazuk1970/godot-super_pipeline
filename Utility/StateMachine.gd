@@ -8,7 +8,7 @@ var maxhistory:int = 20
 var statename:String
 var state:Object
 var _owner:Object
-const DEBUG = false
+export (bool) var DEBUG = false
 
 func state_back():
 	if history.size() > 0:
@@ -29,6 +29,7 @@ func _on_state_complete():
 func _on_state_change(_next_state):
 	if _next_state != null:
 		state_change(_next_state)
+		
 
 func state_change(_next_state):
 	if _next_state != null:
@@ -44,6 +45,7 @@ func state_change(_next_state):
 			statename = state.name
 			state.enter()
 			emit_signal("StateChanged",_next_state)
+
 		else:
 			if DEBUG:
 				print("Node:", _owner.name,", state: ",_next_state," requested but does not exists")

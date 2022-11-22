@@ -1,0 +1,29 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://autoloads/AudioManager.gd" type="Script" id=1]
+[ext_resource path="res://Samples/GET_READY.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Samples/BGM3.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Samples/BGM1.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Samples/STAGE_CLEAR.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Samples/LOBSTER.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Samples/NAME_ENTRY.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Samples/BLIP.ogg" type="AudioStream" id=8]
+[ext_resource path="res://Samples/BGM4.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Samples/HAMMER.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Samples/INTERLUDE.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Samples/GAME_OVER.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Samples/MISS.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Samples/BGM2.ogg" type="AudioStream" id=14]
+[ext_resource path="res://Samples/UNKNOWN.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Samples/THUD.ogg" type="AudioStream" id=16]
+[ext_resource path="res://Samples/SHOT.ogg" type="AudioStream" id=17]
+
+[node name="Audio_Manager" type="Node"]
+script = ExtResource( 1 )
+samples = [ ExtResource( 4 ), ExtResource( 14 ), ExtResource( 3 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 16 ) ]
+
+[node name="sfx_players" type="Node" parent="."]
+
+[node name="music_player" type="AudioStreamPlayer" parent="."]
+bus = "Music"
+[connection signal="finished" from="music_player" to="." method="_on_music_player_finished"]

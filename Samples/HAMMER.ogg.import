@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/HAMMER.ogg-cbc0f4df960b34a7a558ae092b43bcc5.oggstr"
+
+[deps]
+
+source_file="res://Samples/HAMMER.ogg"
+dest_files=[ "res://.import/HAMMER.ogg-cbc0f4df960b34a7a558ae092b43bcc5.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

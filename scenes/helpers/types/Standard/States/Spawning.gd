@@ -1,6 +1,5 @@
 extends State
 func enter(_args:Dictionary = {}):
-	#_owner.position = _owner.start_pos.snapped(Vector2(1,1))
 	_owner.direction = _owner.pf.facingdirection
 	_owner.target_pos = globals.getVect(globals.Level_Data.Player_Start_Position) * globals.tile_size
 	_owner.anim.play("Walk")

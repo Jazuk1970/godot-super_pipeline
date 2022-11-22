@@ -18,7 +18,6 @@ var direction = Vector2.DOWN
 # warning-ignore:unused_class_variable
 var trigger:bool
 
-
 func _ready():
 	set_process(true)
 	fsm.add_states($States)
@@ -28,4 +27,3 @@ func _process(delta):
 	if fsm.state != null:
 		var _args = {"delta":delta}
 		fsm.state.logic(_args)
-

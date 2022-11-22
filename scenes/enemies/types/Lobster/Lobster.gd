@@ -19,10 +19,12 @@ var pf:PipeFollower = PipeFollower.new()
 var pipemap:TileMap
 # warning-ignore:unused_class_variable
 var pipeline:Object
+onready var colV = $CollisionShape2DV
 
 func _ready():
 	if globals.Game_State.statename == "Intermission":
-		$CollisionShape2D2.disabled = true
+		col.disabled = true
+		colV.disabled = true
 	#speed = 150
 	pipeline = globals.level.get_node("pipeline")
 	pipemap = pipeline.map
@@ -48,6 +50,7 @@ func _collided(_a):
 	if _a.is_in_group("Bullet"):
 		#check if the bullet is hitting the head of the lobster
 		if _a.direction.x == pf.direction.x:
-			globals.hud._updateScore(globals.Current_Player,points)
+			globals.hud.updateScore(globals.Current_Player,points)
 			fsm._on_state_change("Dying")
+			_a.boom(position + col.position)
 		_a.queue_free()

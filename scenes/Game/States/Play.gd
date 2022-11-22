@@ -15,17 +15,17 @@ func enter(_args:Dictionary = {}):
 	globals.level.add_child(_bl)
 	complete_done = false
 	_owner.player = _owner.oPlayer.instance()
-#	_owner.player.pf.gridpos = Vector2(globals.Level_Data.Player_Start_Position.left(2),globals.Level_Data.Player_Start_Position.right(2))
 	_owner.player.pf.gridpos = globals.getVect(globals.Level_Data.Player_Start_Position)
+	_owner.player.connect("lifelost",self,"on_player_lifeLost")
 	globals.players.add_child(_owner.player)
+	globals.oCurrent_Player = _owner.player
 	#Make the current player flash on the hud
-	globals.hud._updatePlayer(globals.Current_Player,"Active")
-	$AudioStreamPlayer.play()
+	globals.hud.updatePlayer(globals.Current_Player,"Active")
+	_play_level_music()
 
-	pass
 
 func exit(_args:Dictionary = {}):
-	$AudioStreamPlayer.stop()
+	pass
 
 func logic(_args:Dictionary = {}):
 	pass
@@ -34,4 +34,24 @@ func logic(_args:Dictionary = {}):
 func on_Pipeline_Fill_Complete():
 	if not complete_done:
 		emit_signal("StateChange","LevelComplete")
+		AudioManager.sfx_stop("HAMMER")
+		AudioManager.music_stop()
 		complete_done = true
+
+func _play_level_music():
+	#First wait until the music player is stopped
+	if globals.Level_Data.has("Music"):
+		if AudioManager.music_player.is_playing():
+			yield(AudioManager.music_player,"finished")
+			AudioManager.music_play(globals.Level_Data.Music)
+		else:			
+			AudioManager.music_play(globals.Level_Data.Music)
+
+func on_player_lifeLost():
+	AudioManager.sfx_stop("HAMMER")
+	globals.hud.updateLives(globals.Current_Player,1)
+	if globals.playerstats[globals.Current_Player].lives <= 0:
+		#game over
+		emit_signal("StateChange","GameOver")
+	else:
+		emit_signal("StateChange","LifeLost")

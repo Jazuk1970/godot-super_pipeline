@@ -44,6 +44,7 @@ var flow_out_enable:bool = false
 var flow_state:int
 var nextflowupdate:int = 0
 var _instantfill:bool = false
+var master_flow_enabled = true
 
 
 func _ready():
@@ -55,11 +56,12 @@ func _ready():
 func _process(delta):
 	if fsm.state != null:
 		var _args = {"delta":delta}
-		fsm.state.logic(_args)
-		_update_flowout()
-		_update_flowin()
-		if _instantfill:
-			_updateflow()
+		if master_flow_enabled:
+			fsm.state.logic(_args)
+			_update_flowout()
+			_update_flowin()
+			if _instantfill:
+				_updateflow()
 		
 
 func _on_Timer_timeout():
@@ -81,18 +83,14 @@ func _on_Timer_timeout():
 
 func _blocked(_val):
 	blockreq = _val
-#	if tmr.is_stopped():
-#		tmr.start(flow_rate)
 
 func _updateflow():
 	_instantfill = true if flow_rate <= 0 else false
 	if _instantfill:
 		#Instantly fill the pipe if we are filling or are empty
-#		if fsm.statename == "Filling" or fsm.statename == "Empty":
 		if fsm.statename == "Filling" or fsm.statename == "Full":
 			current_fill = full_state
 		#Instantly empty the pipe if we are full or emptying
-#		elif fsm.statename == "Full" or fsm.statename == "Emptying":
 		elif fsm.statename == "Empty" or fsm.statename == "Emptying":
 			current_fill = empty_state
 	else:
@@ -110,7 +108,6 @@ func _updateflow():
 
 func _update_fill():
 	current_state = fill_states[current_fill]
-#	if z_index >= -10:
 	spr.frame = base_frame + current_state
 
 func _update_flowin():
@@ -190,12 +187,14 @@ func init_pipe():
 		flow_adjustment = 1
 
 func pipe_fill():
-	fsm.statename == "Full"
+	#fsm.statename == "Full"
 	current_fill = full_state
 	_update_fill()
 
 func pipe_empty():
-	fsm.statename == "Empty"
+	#fsm.statename == "Empty"
 	current_fill = empty_state
 	_update_fill()
-	
+
+func master_flow_enable(state):
+	master_flow_enabled = state

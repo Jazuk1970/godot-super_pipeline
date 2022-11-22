@@ -78,24 +78,17 @@
                                   "id": "1",
                                   "speed":"350",
                                   "points":"25",
-                                  "spawn_frequency":"10",
-                                  "initial_delay":"15"
+                                  "spawn_frequency":"4",
+                                  "initial_delay":"0"
                                   }
                                 },
                         "Flea":{
                                  "1":{
                                   "id": "1",
-                                  "speed":"400",
+                                  "speed":"450",
                                   "points":"100",
-                                  "spawn_frequency":"12",
+                                  "spawn_frequency":"8",
                                   "initial_delay":"5"
-                                  },
-                                 "2":{
-                                  "id": "2",
-                                  "speed":"350",
-                                  "points":"50",
-                                  "spawn_frequency":"15",
-                                  "initial_delay":"7"
                                   }
                                 },
                         "Lobster":{
@@ -103,14 +96,14 @@
                                   "id": "1",
                                   "speed":"300",
                                   "points":"50",
-                                  "spawn_frequency":"18",
-                                  "initial_delay":"20"
+                                  "spawn_frequency":"30",
+                                  "initial_delay":"5"
                                   }
 				                          },
                         "Block":{
                                  "1":{
                                   "id": "1",
-                                  "speed":"100",
+                                  "speed":"0",
                                   "points":"0",
                                   "source_gridpos":"4215",
                                   "target_gridpos":"4225"
@@ -131,11 +124,12 @@
                       },
             "Player_Start_Position":"0814",
             "Player_Start_Direction":"2",
-            "Target_Fill":"1000",
+            "Target_Fill":"2000",
             "Next_Level":"06A",
-            "Level_Colour":"00",
+            "Level_Colour":"05",
             "LevelName":"Pipeline 06",
             "Level_Type":"Pipeline",
+            "Music":"BGM2",
             "PipeData":"0514000100010204010102050101020501012001100112021101120211012201000102040101200110011201110122010001020201012101110112051101120410012001010102040001230110011202110122010001020101012101120120010101020100011501010102020101150100010205000123011001120110011202110112011101210101010205000122011101120510012301000101012001100111012201000102010001150102010101200112012201000102040101"
           }
 
